@@ -21,7 +21,7 @@
     "noImplicitThis": true,
     "noImplicitAny": true,
     "importHelpers": true,
-    "allowJs": true,
+    "allowJs": false,
     "strictNullChecks": false,
     "suppressImplicitAnyIndexErrors": true,
     "noUnusedLocals": true
