@@ -1,4 +1,5 @@
 const path = require('path/posix')
+const Dotenv = require('dotenv-webpack');
 
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 module.exports = {
@@ -20,19 +21,16 @@ module.exports = {
       test: /\.ts(x?)$/,
       loader: 'ts-loader',
       exclude: /node_modules/
-    },
-    {
-      test: /\.(s?)css$/,
+    }, {
+      test: /\.scss$/,
       use: [{
         loader: 'style-loader'
-      },
-      {
+      }, {
         loader: 'css-loader',
-        option: {
+        options: {
           modules: true
         }
-      },
-      {
+      }, {
         loader: 'sass-loader'
       }]
     }]
@@ -47,6 +45,7 @@ module.exports = {
     'react-dom': 'ReactDOM'
   },
   plugins: [
-    new CleanWebpackPlugin()
+    new CleanWebpackPlugin(),
+    new Dotenv()
   ]
 }
