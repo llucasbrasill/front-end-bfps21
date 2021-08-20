@@ -1,9 +1,9 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import Signin from './presentation/pages/login/signin/signin'
-import '../main/presentation/assets/sass/components/_buttons.scss'
+import { SignIn } from '@/presentation/pages/index'
+import '@/presentation/assets/sass/components/_buttons.scss'
 
 ReactDOM.render(
-    <Signin />,
+    <SignIn />,
     document.getElementById('app')
 )
