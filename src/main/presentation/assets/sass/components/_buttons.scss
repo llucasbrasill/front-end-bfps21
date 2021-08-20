@@ -1,0 +1,10 @@
+button {
+    border: 1px solid var(--border-color);
+    box-sizing: border-box;
+    height: 41px;
+    margin: var(--padding-medium);
+    border-radius: var(--border-radius);
+    background: var(--color-black);
+    color: var(--color-white);
+    cursor: pointer;
+}

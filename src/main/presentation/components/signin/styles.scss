@@ -1,0 +1,177 @@
+.form {
+  border: 1px solid var(--color-border);
+  background-color: var(--color-white);
+  border-radius: var(--border-radius);
+  display: inline-flex;
+  align-items: flex-start;
+  padding: var(--padding-medium);
+  margin: var(--padding-medium);
+  flex-direction: column;
+  margin-top: calc(var(--padding-big) * 2);
+  min-height: 520px;
+  justify-content: space-between;
+  min-width: 300px;
+  max-width: 520px;
+  width: calc(100% - 128px);
+
+  h1 {
+    display: block;
+  }
+
+  h2 {
+    color: var(--color-black);
+    padding: var(--padding-medium);
+    line-height: 1.5;
+    font-weight: 400;
+    padding: 8px;
+  }
+
+  form {
+    flex-direction: column;
+    display: inline-flex;
+    width: 100%;
+  }
+
+  input {
+    border: 1px solid var(--border-color);
+    box-sizing: border-box;
+    height: 41px;
+    margin: var(--padding-small) var(--padding-medium);
+    border-radius: var(--border-radius);
+    padding: var(--padding-small) var(--padding-medium);
+  }
+
+  input:focus {
+    border: 1px solid var(--color-black);
+    outline: 0;
+  }
+
+  form label {
+    font-size: 12px;
+    line-height: 100%;
+    margin: 0 var(--padding-medium);
+    color: var(--color-black-text);
+  }
+
+  header {
+    width: 100%;
+    text-align: center;
+    justify-content: center;
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: var(--padding-medium);
+  }
+
+  footer {
+    display: inline-flex;
+    flex-direction: column;
+    width: 100%;
+  }
+
+
+  b {
+    color: var(--color-black);
+    font-weight: 400;
+  }
+
+  .createAccount {
+    color: var(--color-black-text);
+    text-decoration: none;
+    text-align: center;
+    font-weight: 400;
+    margin: var(--padding-medium) 0;
+    font-size: 13px;
+    width: 100%;
+    text-align: center;
+  }
+
+  .menu {
+    font-size: 10px;
+    line-height: 100%;
+    color: var(--color-gray);
+    margin: var(--padding-medium);
+    text-align: center;
+
+    p {
+        margin: var(--padding-small);
+      }
+  }
+
+
+  .recoveryPassword {
+    color: var(--color-black-text);
+    text-decoration: none;
+    text-align: center;
+    margin-top: var(--padding-big);
+    padding: var(--padding-medium) 0 0 0;
+    font-size: 13px;
+    width: 100%;
+    border-top: 1px solid var(--color-border);
+    font-weight: 400;
+  }
+
+  .user {
+    border: 1px solid var(--border-color);
+    box-sizing: border-box;
+    height: 41px;
+    margin: var(--padding-medium);
+    border-radius: var(--border-radius);
+    background: var(--color-white);
+    border-radius: 8px;
+    width: max-content;
+    padding: var(--padding-small) calc(var(--padding-small) * 4);
+    color: var(--color-black-text);
+    margin: var(--padding-medium);
+    align-items: center;
+    display: flex;
+  }
+
+  .user:hover {
+    background: var(--border-color);
+    cursor: pointer;
+  }
+
+  .password h2 {
+    padding-bottom: 0;
+  }
+
+  .loading {
+    padding: 64px 0;
+    text-align: center;
+    align-items: center;
+    display: inline-flex;
+    justify-content: center;
+    width: 100%;
+  }
+}
+
+.slogan {
+  color: var(--color-white);
+  padding: calc(var(--padding-medium) * 2);
+  font-size: 64px;
+}
+
+.slogan span {
+  background: var(--color-white);
+  color: var(--color-black);
+  padding: 0 var(--padding-medium);
+}
+
+
+@media only screen and (max-width: 480px) {
+  .form {
+    min-width: 80%;
+    margin-top: unset;
+    background: #fff;
+    z-index: 1;
+    min-height: 0;
+  }
+
+  h1 {
+    color: var(--color-black);
+    z-index: 1;
+    padding: 16px;
+    margin-bottom: 0;
+  }
+}

@@ -1,5 +1,5 @@
 const path = require('path/posix')
-const Dotenv = require('dotenv-webpack');
+const Dotenv = require('dotenv-webpack')
 
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 module.exports = {
@@ -38,7 +38,10 @@ module.exports = {
   devServer: {
     contentBase: './public',
     writeToDisk: true,
-    historyApiFallback: true
+    historyApiFallback: true,
+    compress: true,
+    disableHostCheck: true,
+    port: 8080
   },
   externals: {
     react: 'React',

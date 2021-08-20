@@ -12,7 +12,6 @@
     "sourceMap": true,
     "jsx": "react",
     "moduleResolution": "node",
-    "rootDir": "src",
     "baseUrl": "src",
     "paths": {
       "@/*": ["*"]

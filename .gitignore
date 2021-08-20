@@ -3,3 +3,4 @@ vscode
 coverage
 .vscode/launch.json
 public/js
+.env
