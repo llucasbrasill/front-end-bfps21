@@ -1,0 +1,21 @@
+.wrapper {
+
+  display: inline-flex;
+    
+    input {
+        border: 1px solid var(--border-color);
+        box-sizing: border-box;
+        height: 41px;
+        margin: var(--padding-small) var(--padding-medium);
+        border-radius: var(--border-radius);
+        padding: var(--padding-small) var(--padding-medium);
+        width: 100%;
+     
+      }
+    
+      input:focus {
+        border: 1px solid var(--color-black);
+        outline: 0;
+      }
+    
+}
