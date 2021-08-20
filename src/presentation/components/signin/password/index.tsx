@@ -1,4 +1,5 @@
 import React from 'react'
+import Input from '../../input'
 import Logo from '../../logo'
 import Terms from '../../term'
 import styles from '../styles.scss'
@@ -17,10 +18,10 @@ type Props = {
 }
 
 const SignInPassword: React.FC<Props> = ({ value, setValue, handleClick }: Props) => {
-  const passwordRef = React.useRef(null)
+  const formRef = React.useRef(null)
   const handleSubmit = (event): void => {
     event.preventDefault()
-    passwordRef.current.reportValidity()
+    formRef.current.reportValidity()
     handleClick(2)
   }
 
@@ -39,9 +40,9 @@ const SignInPassword: React.FC<Props> = ({ value, setValue, handleClick }: Props
           </p>
         </header>
 
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} ref={formRef}>
           <label htmlFor="password">Digite sua senha</label>
-          <input className="password" type="password" ref={passwordRef} id="password" placeholder="Senha" value={value.password} onChange={handleChange} required />
+          <Input className="password" type="password" id="password" placeholder="Senha" value={value.password} onChange={handleChange} required />
 
           <button type="submit">Entrar</button>
           <a href="#link" className={styles.createAccount}>
