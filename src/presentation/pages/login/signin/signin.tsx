@@ -1,9 +1,5 @@
 import React from 'react'
-import LoginLayout from '@/main/presentation/components/layout/login'
-import SignIn from '@/main/presentation/components/signin/email'
-import SignInPassword from '@/main/presentation/components/signin/password/password'
-import Slogan from '@/main/presentation/components/signin/slogan'
-import Loading from '@/main/presentation/components/signin/loading'
+import { SignInLoading, LoginLayout, SignInSlogan, SignInPassword, SignInEmail } from '@/presentation/components'
 
 const SigninPage: React.FC = () => {
   const [login, setLogin] = React.useState({
@@ -18,14 +14,14 @@ const SigninPage: React.FC = () => {
   }
 
   const presentation = [
-    <><SignIn value={login} setValue={setLogin} handleClick={handleClick} /></>,
+    <><SignInEmail value={login} setValue={setLogin} handleClick={handleClick} /></>,
     <><SignInPassword value={login} setValue={setLogin} handleClick={handleClick}/></>,
-    <><Loading /></>
+    <><SignInLoading /></>
   ]
 
   return (
   <>
-    <LoginLayout aside={<Slogan />}>
+    <LoginLayout aside={<SignInSlogan />}>
       {presentation[login.isLogin]}
     </LoginLayout>
   </>
