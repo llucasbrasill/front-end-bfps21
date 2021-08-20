@@ -1,4 +1,5 @@
 import React from 'react'
+import Input from '../../input'
 import Logo from '../../logo'
 import Terms from '../../term'
 import styles from '../styles.scss'
@@ -17,10 +18,9 @@ type Props = {
 }
 
 const SignIn: React.FC<Props> = ({ value, setValue, handleClick }: Props) => {
-  const form = React.useRef(null)
-  const email = React.useRef(null)
+  const formRef = React.useRef(null)
   const handleSubmit = (): void => {
-    email.current.reportValidity()
+    formRef.current.reportValidity()
     handleClick(1)
   }
 
@@ -36,13 +36,12 @@ const SignIn: React.FC<Props> = ({ value, setValue, handleClick }: Props) => {
           <h2>Acesse sua conta</h2>
         </header>
 
-        <form onSubmit={(event) => { event.preventDefault(); handleSubmit() }} ref={form}>
+        <form onSubmit={(event) => { event.preventDefault(); handleSubmit() }} ref={formRef}>
           <label htmlFor="email">E-mail</label>
-          <input
+          <Input
             className="email"
             id="email"
             type="email"
-            ref={email}
             placeholder="Informe seu e-mail"
             value={value.email}
             onChange={handleChange}
