@@ -3,6 +3,7 @@ import Input from '../../input'
 import Logo from '../../logo'
 import Terms from '../../term'
 import styles from '../styles.scss'
+import { Link } from 'react-router-dom'
 
 interface login {
   email: string
@@ -49,15 +50,15 @@ const SignIn: React.FC<Props> = ({ value, setValue, handleClick }: Props) => {
           />
           <button type="submit">Continuar</button>
 
-          <a href="#aa" className={styles.createAccount}>
+          <Link to="/signup" className={styles.createAccount}>
             Não tem conta? <b>Teste grátis por 7 dias.</b>
-          </a>
+          </Link>
         </form>
 
         <footer>
-          <a href="#a" className={styles.recoveryPassword}>
+          <Link to="/" className={styles.recoveryPassword}>
             Preciso de ajuda para entrar
-          </a>
+          </Link>
         </footer>
       </div>
 

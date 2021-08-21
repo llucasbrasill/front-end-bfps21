@@ -1,9 +1,10 @@
 
 .wrapper {
   width: 100%;
-  height: 100vh;
+  height: auto;
   display: inline-flex;
-  min-height: 750px;
+  min-height: 100vh;
+  background: var(--color-black);
 
   .col {
     width: 50%;
@@ -17,17 +18,9 @@
     align-items: center;
     justify-content: center;
     flex-direction: column;
+    padding: calc(var(--padding-medium)*2)
   } 
 
-
-  .aside {
-    background-color: var(--color-black) !important;
-    background-image: var(--bg-login);
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position-x: left;
-    box-shadow: inset 0 0 0 1000px #00000050;
-    }
 }
 
 
