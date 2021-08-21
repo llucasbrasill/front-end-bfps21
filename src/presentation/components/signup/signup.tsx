@@ -53,6 +53,7 @@ const SignUp: React.FC<Props> = ({ value, setValue, handleClick }: Props) => {
               placeholder="Informe seu e-mail"
               value={value.email}
               onChange={handleChange}
+              autoComplete="off"
               required
             />
           </div>
@@ -66,6 +67,7 @@ const SignUp: React.FC<Props> = ({ value, setValue, handleClick }: Props) => {
               placeholder="Digite sua senha"
               value={value.password}
               onChange={handleChange}
+              autoComplete="off"
               required
             />
           </div>
@@ -79,6 +81,7 @@ const SignUp: React.FC<Props> = ({ value, setValue, handleClick }: Props) => {
               type="password"
               placeholder="Confirmar senha"
               value={value.passwordConfirm}
+              autoComplete="off"
               onChange={handleChange}
               required
             />
