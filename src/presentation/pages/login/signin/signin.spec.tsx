@@ -51,4 +51,18 @@ describe('Signnn Page', () => {
       email: 'any_email'
     })
   })
+
+  test('should call Validation with correct email password', async () => {
+    const { sut, validationSpy } = makeSut()
+    const emailInput = sut.getByTestId('email') as HTMLInputElement
+    fireEvent.input(emailInput, { target: { value: 'any_email@email.com' } })
+    const submitButtonEmail = sut.getByTestId('submitEmail') as HTMLButtonElement
+
+    fireEvent.click(submitButtonEmail)
+    const passwordInput = sut.getByTestId('password') as HTMLInputElement
+    fireEvent.input(passwordInput, { target: { value: 'any_password' } })
+    await (() => expect(validationSpy.input).toEqual({
+      password: 'any_password'
+    }))
+  })
 })
