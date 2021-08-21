@@ -1,28 +1,37 @@
 import React from 'react'
 import { SignInLoading, LoginLayout, SignInSlogan, SignInPassword, SignInEmail } from '@/presentation/components'
+import { Validation } from '@/presentation/protocols/valitation'
 
-const SigninPage: React.FC = () => {
-  const [login, setLogin] = React.useState({
+type Props = {
+  validation: Validation
+}
+
+const SigninPage: React.FC<Props> = ({ validation }: Props) => {
+  const [state, setState] = React.useState({
     email: '',
     password: '',
     remember: false,
     isLogin: 0
   })
 
+  React.useEffect(() => {
+    validation.validate({ email: state.email })
+  }, [state.email])
+
   const handleClick = (step): void => {
-    setLogin({ ...login, isLogin: step })
+    setState({ ...state, isLogin: step })
   }
 
   const presentation = [
-    <><SignInEmail value={login} setValue={setLogin} handleClick={handleClick} /></>,
-    <><SignInPassword value={login} setValue={setLogin} handleClick={handleClick}/></>,
+    <><SignInEmail value={state} setValue={setState} handleClick={handleClick} /></>,
+    <><SignInPassword value={state} setValue={setState} handleClick={handleClick}/></>,
     <><SignInLoading /></>
   ]
 
   return (
   <>
     <LoginLayout aside={<SignInSlogan />}>
-      {presentation[login.isLogin]}
+      {presentation[state.isLogin]}
     </LoginLayout>
   </>
   )

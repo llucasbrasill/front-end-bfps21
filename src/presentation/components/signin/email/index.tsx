@@ -40,10 +40,10 @@ const SignIn: React.FC<Props> = ({ value, setValue, handleClick }: Props) => {
         <form onSubmit={(event) => { event.preventDefault(); handleSubmit() }} ref={formRef}>
           <label htmlFor="email">E-mail</label>
           <Input
-            data-testid="emailInput"
             className="email"
             id="email"
             type="email"
+            name="email"
             placeholder="Informe seu e-mail"
             value={value.email}
             onChange={handleChange}
