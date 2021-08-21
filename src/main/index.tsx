@@ -1,9 +1,9 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { SignIn } from '@/presentation/pages/index'
 import '@/presentation/assets/sass/components/_buttons.scss'
+import { Router } from '@/presentation/components'
 
 ReactDOM.render(
-    <SignIn />,
+    <Router />,
     document.getElementById('app')
 )
