@@ -31,7 +31,7 @@ const SignIn: React.FC<Props> = ({ value, setValue, handleClick }: Props) => {
 
   return (
     <>
-      <div className={styles.form}>
+      <div data-testid="emailWrapper" className={styles.form}>
         <header>
           <Logo />
           <h2>Acesse sua conta</h2>
@@ -48,7 +48,7 @@ const SignIn: React.FC<Props> = ({ value, setValue, handleClick }: Props) => {
             onChange={handleChange}
             required
           />
-          <button type="submit">Continuar</button>
+          <button type="submit" data-testid="submitEmail" disabled={!value.email}>Continuar</button>
 
           <Link to="/signup" className={styles.createAccount}>
             Não tem conta? <b>Teste grátis por 7 dias.</b>

@@ -21,6 +21,10 @@
     padding: calc(var(--padding-medium)*2)
   } 
 
+  header {
+    padding: 32px 0 0;
+  }
+
 }
 
 
@@ -38,29 +42,5 @@
 }
 
 @media only screen and (min-width: 480px) {
-  .wrapper header {
-    padding: 32px 0 0;
-  }
-}
-@media only screen and (max-width: 480px) {
-  .wrapper:before {
-    background: black;
-    content: "";
-    width: 100%;
-    position: absolute;
-    height: 380px;
-  }
-  .wrapper h1 {
-    color: var(--color-black);
-    z-index: 1;
-    padding: 16px;
-    margin-bottom: 0;
-  }
 
-  .wrapper > div:nth-child(1) {
-    background-color: var(--color-white);
-    align-items: center;
-    display: flex;
-    justify-content: center;
-  }
 }

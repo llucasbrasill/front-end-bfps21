@@ -84,7 +84,6 @@
       }
   }
 
-
   .recoveryPassword {
     color: var(--color-black-text);
     text-decoration: none;
@@ -129,6 +128,7 @@
     justify-content: center;
     width: 100%;
   }
+
 }
 
 .slogan {
@@ -143,6 +143,14 @@
   padding: 0 var(--padding-medium);
 }
 
+.message {
+  width: 100%;
+  text-align: center;
+  flex-direction: column;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+}
 
 @media only screen and (max-width: 480px) {
   .form {

@@ -34,17 +34,19 @@ const SignInPassword: React.FC<Props> = ({ value, setValue, handleClick }: Props
       <div className={`${styles.form} ${styles.password}`}>
         <header>
           <Logo />
+        </header>
+
+        <form onSubmit={handleSubmit} ref={formRef}>
+        <div className={styles.message}>
           <h2>Olá!</h2>
           <p onClick={() => setValue({ ...value, isLogin: 0 })} className={styles.user}>
             {value.email}
           </p>
-        </header>
-
-        <form onSubmit={handleSubmit} ref={formRef}>
+        </div>
           <label htmlFor="password">Digite sua senha</label>
           <Input className="password" type="password" id="password" placeholder="Senha" value={value.password} onChange={handleChange} required />
 
-          <button type="submit">Entrar</button>
+          <button type="submit" disabled={!value.password}>Entrar</button>
           <a href="#link" className={styles.createAccount}>
             Esqueceu sua senha?
             {' '}
