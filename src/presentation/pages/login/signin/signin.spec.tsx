@@ -4,6 +4,7 @@ import { Validation } from '@/presentation/protocols/valitation'
 import { SignIn } from '../../index'
 import { BrowserRouter } from 'react-router-dom'
 import { ValidationSpy } from '@/presentation/test'
+import faker from 'faker'
 
 type SutTypes = {
   sut: RenderResult
@@ -38,21 +39,26 @@ describe('Signnn Page', () => {
   test('should call Validation with correct values email', () => {
     const { sut, validationSpy } = makeSut()
     const emailInput = sut.getByTestId('email') as HTMLInputElement
-    fireEvent.input(emailInput, { target: { value: 'any_email' } })
+    const email = faker.internet.email()
+    fireEvent.input(emailInput, { target: { value: email } })
     expect(validationSpy.fieldName).toBe('email')
-    expect(validationSpy.fieldValue).toBe('any_email')
+    expect(validationSpy.fieldValue).toBe(email)
   })
 
   test('should call Validation with correct email password', async () => {
     const { sut, validationSpy } = makeSut()
     const emailInput = sut.getByTestId('email') as HTMLInputElement
-    fireEvent.input(emailInput, { target: { value: 'any_email@email.com' } })
+    const email = faker.internet.email()
+    fireEvent.input(emailInput, { target: { value: email } })
+    expect(validationSpy.fieldName).toBe('email')
+    expect(validationSpy.fieldValue).toBe(email)
     const submitButtonEmail = sut.getByTestId('submitEmail') as HTMLButtonElement
 
     fireEvent.click(submitButtonEmail)
     const passwordInput = sut.getByTestId('password') as HTMLInputElement
-    fireEvent.input(passwordInput, { target: { value: 'any_password' } })
+    const password = faker.internet.password()
+    fireEvent.input(passwordInput, { target: { value: password } })
     await (() => expect(validationSpy.fieldName).toBe('password'))
-    await (() => expect(validationSpy.fieldValue).toBe('any_password'))
+    await (() => expect(validationSpy.fieldValue).toBe(password))
   })
 })
