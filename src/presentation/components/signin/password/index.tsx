@@ -9,6 +9,7 @@ interface login {
   password: string
   remember: boolean
   isLogin: number
+  passwordError: string
 }
 
 type Props = {
@@ -45,7 +46,7 @@ const SignInPassword: React.FC<Props> = ({ value, setValue, handleClick }: Props
         </div>
           <label htmlFor="password">Digite sua senha</label>
           <Input className="password" name="password" type="password" id="password" placeholder="Senha" value={value.password} onChange={handleChange} required />
-
+          <span data-testid="passwordStatus"></span>
           <button type="submit" disabled={!value.password}>Entrar</button>
           <a href="#link" className={styles.createAccount}>
             Esqueceu sua senha?

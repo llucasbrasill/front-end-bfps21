@@ -1,5 +1,5 @@
 {
-    "experimente": "Try it free for 7 days",
+    "experimente" : "Try it free for 7 days",
     "email": "Email",
     "password": "Password",
     "passwordConfirm": "Confirm password",
@@ -7,5 +7,12 @@
     "start": "Start",
     "Already have an account? Sign in to your  account.": "Already have an account? Sign in to your  account.",
     "enter your password": "Enter your password",
-    "Já possui conta? <1>acesse sua conta.</1>": "Already have an account? <1>Sign in to your  account.</1>"
+    "Já possui conta? <1>acesse sua conta.</1>": "Already have an account? <1>Sign in to your  account.</1>",
+    "Não tem conta? <1>Teste grátis por 7 dias.</1>": "Don't have an account? <1>Free trial for 7 days.</1>",
+    "Access your account": "Access your account",
+    "continue": "Continue",
+    "Already have an account? access your account": "Already have an account? access your account",
+    "I need help to sign in": "I need help to sign in",
+    "slogan": "Your <br/> <span>proposals</span> <br/> in one<br/> a place"
+
 }

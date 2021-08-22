@@ -8,5 +8,10 @@
     "enter your password": "Digite sua senha",
     "passwordConfirm": "Confimar senha",
     "Já possui conta? <1>acesse sua conta.</1>": "Já possui conta? <1>acesse sua conta.</1>",
-    "Welcome to React": "Bienvenue à React et react-i18next"
+    "Welcome to React": "Bienvenue à React et react-i18next",
+    "Access your account": "Acesse sua conta",
+    "continue": "Continuar",
+    "Não tem conta? <1>Teste grátis por 7 dias.</1>": "Não tem conta? <1>Teste grátis por 7 dias.</1>",
+    "I need help to sign in": "Preciso de ajuda para entrar",
+    "slogan": "Suas <br/><span>propostas</span><br/> em um<br/>único lugar"
 }
