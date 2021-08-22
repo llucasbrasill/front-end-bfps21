@@ -4,12 +4,14 @@ import Logo from '../../logo'
 import Terms from '../../term'
 import styles from '../styles.scss'
 import { Link } from 'react-router-dom'
+import { Trans, useTranslation } from 'react-i18next'
 
 interface login {
   email: string
   password: string
   remember: boolean
   isLogin: number
+  emailError: string
 }
 
 type Props = {
@@ -19,6 +21,7 @@ type Props = {
 }
 
 const SignIn: React.FC<Props> = ({ value, setValue, handleClick }: Props) => {
+  const { t } = useTranslation()
   const formRef = React.useRef(null)
   const handleSubmit = (): void => {
     formRef.current.reportValidity()
@@ -34,31 +37,32 @@ const SignIn: React.FC<Props> = ({ value, setValue, handleClick }: Props) => {
       <div data-testid="emailWrapper" className={styles.form}>
         <header>
           <Logo />
-          <h2>Acesse sua conta</h2>
+          <h2>{t('Access your account')}</h2>
         </header>
 
         <form onSubmit={(event) => { event.preventDefault(); handleSubmit() }} ref={formRef}>
-          <label htmlFor="email">E-mail</label>
+          <label htmlFor="email">{t('email')}</label>
           <Input
             className="email"
             id="email"
             type="email"
             name="email"
-            placeholder="Informe seu e-mail"
+            placeholder={t('enter your email')}
             value={value.email}
             onChange={handleChange}
             required
           />
-          <button type="submit" data-testid="submitEmail" disabled={!value.email}>Continuar</button>
+          <span data-testid="emailStatus"></span>
+          <button type="submit" data-testid="submitEmail" disabled={!value.email}>{t('continue')}</button>
 
           <Link to="/signup" className={styles.createAccount}>
-            Não tem conta? <b>Teste grátis por 7 dias.</b>
+            <Trans>Não tem conta? <b>Teste grátis por 7 dias.</b></Trans>
           </Link>
         </form>
 
         <footer>
           <Link to="/" className={styles.recoveryPassword}>
-            Preciso de ajuda para entrar
+            <Trans>I need help to sign in</Trans>
           </Link>
         </footer>
       </div>
