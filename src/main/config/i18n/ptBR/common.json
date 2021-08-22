@@ -1,0 +1,12 @@
+{
+    "experimente": "Teste grátis por 7 dias",
+    "email": "E-mail",
+    "password": "Senha",
+    "start": "Começar",
+    "enter your email": "Digite seu e-mail",
+    "Already have an account? Sign in to your  account.": "Já possui conta? acesse sua conta.",
+    "enter your password": "Digite sua senha",
+    "passwordConfirm": "Confimar senha",
+    "Já possui conta? <1>acesse sua conta.</1>": "Já possui conta? <1>acesse sua conta.</1>",
+    "Welcome to React": "Bienvenue à React et react-i18next"
+}
