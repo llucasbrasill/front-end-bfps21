@@ -5,7 +5,6 @@ import {
   SignInSlogan,
   SignUp
 } from '@/presentation/components'
-import ChangeLanguage from '@/presentation/components/translations/changeLanguage'
 
 const SignupPage: React.FC = () => {
   const [login, setLogin] = React.useState({
@@ -33,7 +32,6 @@ const SignupPage: React.FC = () => {
       <LoginLayout aside={<SignInSlogan />}>
         {presentation[login.isLogin]}
       </LoginLayout>
-      <ChangeLanguage />
     </>
   )
 }

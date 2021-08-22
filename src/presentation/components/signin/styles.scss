@@ -84,13 +84,7 @@
       }
   }
 
-  span[data-testid="emailStatus"], span[data-testid="passwordStatus"] {
-    padding: var(--padding-small) var(--padding-medium);
-    font-size: 12px;
-    color: red;
-  }
-
-  .recoveryPassword{
+  .recoveryPassword {
     color: var(--color-black-text);
     text-decoration: none;
     text-align: center;

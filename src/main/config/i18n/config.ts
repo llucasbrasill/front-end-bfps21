@@ -6,10 +6,10 @@ import { initReactI18next } from 'react-i18next'
 
 export const resources = {
   en: {
-    translation: en
+    translation: ptBR
   },
   pt: {
-    translation: ptBR
+    translation: en
   }
 } as const
 

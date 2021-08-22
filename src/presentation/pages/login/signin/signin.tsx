@@ -1,7 +1,6 @@
 import React from 'react'
 import { SignInLoading, LoginLayout, SignInSlogan, SignInPassword, SignInEmail } from '@/presentation/components'
-import { Validation } from '@/presentation/protocols/validation'
-import ChangeLanguage from '@/presentation/components/translations/changeLanguage'
+import { Validation } from '@/presentation/protocols/valitation'
 
 type Props = {
   validation: Validation
@@ -12,10 +11,16 @@ const SigninPage: React.FC<Props> = ({ validation }: Props) => {
     email: '',
     password: '',
     remember: false,
-    emailError: '',
-    passwordError: '',
     isLogin: 0
   })
+
+  React.useEffect(() => {
+    validation.validate('email', state.email)
+  }, [state.email])
+
+  React.useEffect(() => {
+    validation.validate('password', state.password)
+  }, [state.password])
 
   const handleClick = (step): void => {
     setState({ ...state, isLogin: step })
@@ -32,7 +37,6 @@ const SigninPage: React.FC<Props> = ({ validation }: Props) => {
     <LoginLayout aside={<SignInSlogan />}>
       {presentation[state.isLogin]}
     </LoginLayout>
-    <ChangeLanguage />
   </>
   )
 }

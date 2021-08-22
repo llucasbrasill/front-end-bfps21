@@ -4,7 +4,6 @@ import Logo from '../logo'
 import Terms from '../term'
 import styles from './styles.scss'
 import { Link } from 'react-router-dom'
-import { useTranslation, Trans } from 'react-i18next'
 
 interface login {
   email: string
@@ -20,8 +19,6 @@ type Props = {
 }
 
 const SignUp: React.FC<Props> = ({ value, setValue, handleClick }: Props) => {
-  const { t } = useTranslation()
-
   const formRef = React.useRef(null)
   const handleSubmit = (): void => {
     formRef.current.reportValidity()
@@ -37,7 +34,7 @@ const SignUp: React.FC<Props> = ({ value, setValue, handleClick }: Props) => {
       <div className={styles.form}>
         <header>
           <Logo />
-          <h2>{t('experimente')}</h2>
+          <h2>Experimente por 7 dias</h2>
         </header>
 
         <form
@@ -48,12 +45,12 @@ const SignUp: React.FC<Props> = ({ value, setValue, handleClick }: Props) => {
           ref={formRef}
         >
           <div>
-            <label htmlFor="email">{t('email')}</label>
+            <label htmlFor="email">E-mail</label>
             <Input
               className="email"
               id="email"
               type="email"
-              placeholder={t('enter your email')}
+              placeholder="Informe seu e-mail"
               value={value.email}
               onChange={handleChange}
               autoComplete="off"
@@ -62,12 +59,12 @@ const SignUp: React.FC<Props> = ({ value, setValue, handleClick }: Props) => {
           </div>
 
           <div>
-            <label htmlFor="email">{t('password')}</label>
+            <label htmlFor="email">Senha</label>
             <Input
               className="password"
               id="password"
               type="password"
-              placeholder={t('enter your password')}
+              placeholder="Digite sua senha"
               value={value.password}
               onChange={handleChange}
               autoComplete="off"
@@ -76,13 +73,13 @@ const SignUp: React.FC<Props> = ({ value, setValue, handleClick }: Props) => {
           </div>
 
           <div>
-            <label htmlFor="passwordConfirm">{t('passwordConfirm')}</label>
+            <label htmlFor="email">Confirmar Senha</label>
 
             <Input
               className="passwordConfirm"
               id="passwordConfirm"
               type="password"
-              placeholder={t('enter your password')}
+              placeholder="Confirmar senha"
               value={value.passwordConfirm}
               autoComplete="off"
               onChange={handleChange}
@@ -90,12 +87,12 @@ const SignUp: React.FC<Props> = ({ value, setValue, handleClick }: Props) => {
             />
           </div>
 
-          <button type="submit">{t('start')}</button>
+          <button type="submit">Começar</button>
         </form>
 
         <footer>
-          <Link to="/signin" className={styles.footerlink}>
-          <Trans>Já possui conta? <b>acesse sua conta.</b></Trans>
+          <Link to="/signin" className={styles.recoveryPassword}>
+            Já possui conta? <b>acesse sua conta.</b>
           </Link>
         </footer>
       </div>
