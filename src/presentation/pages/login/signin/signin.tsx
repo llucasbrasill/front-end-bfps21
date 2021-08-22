@@ -15,8 +15,12 @@ const SigninPage: React.FC<Props> = ({ validation }: Props) => {
   })
 
   React.useEffect(() => {
-    validation.validate({ email: state.email })
+    validation.validate('email', state.email)
   }, [state.email])
+
+  React.useEffect(() => {
+    validation.validate('password', state.password)
+  }, [state.password])
 
   const handleClick = (step): void => {
     setState({ ...state, isLogin: step })
