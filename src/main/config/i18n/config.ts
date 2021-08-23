@@ -3,6 +3,7 @@ import i18n from 'i18next'
 import ptBR from './ptBR/common.json'
 import en from './en/common.json'
 import { initReactI18next } from 'react-i18next'
+import LanguageDetector from 'i18next-browser-languagedetector'
 
 export const resources = {
   en: {
@@ -13,8 +14,16 @@ export const resources = {
   }
 } as const
 
+const options = {
+  order: ['querystring', 'navigator'],
+  lookupQuerystring: 'lng'
+}
+
 // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-i18n.use(initReactI18next).init({
+i18n.use(initReactI18next).use(LanguageDetector).init({
   lng: 'pt',
+  detection: options,
   resources
 })
+
+i18n.changeLanguage()

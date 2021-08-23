@@ -1,7 +1,6 @@
 .wrapper {
-    position: absolute;
-    bottom: 0;
-    button {
-        padding: 8px 32px;
+    padding: 15px;
+    select {
+        background: var(--color-gray-light);
     }
 }
