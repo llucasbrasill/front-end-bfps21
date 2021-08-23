@@ -15,21 +15,31 @@ const SigninPage: React.FC<Props> = ({ validation, authentication }: Props) => {
     remember: false,
     emailError: '',
     passwordError: '',
-    isLogin: 0
+    isLogin: 0,
+    isLoading: false
   })
 
   React.useEffect(() => {
-    setState(
+    validation && setState(
       {
         ...state,
-        emailError: validation.validate('email', state.email),
+        emailError: validation.validate('email', state.email)
+      }
+    )
+  }, [state.email])
+
+  React.useEffect(() => {
+    validation && setState(
+      {
+        ...state,
         passwordError: validation.validate('password', state.password)
       }
     )
-  }, [state.email, state.password])
+  }, [state.password])
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>): Promise<void> => {
-    setState({ ...state, isLogin: 2 })
+    event.preventDefault()
+    setState({ ...state, isLoading: true })
     await authentication.auth({ email: state.email, password: state.password })
   }
 
@@ -39,14 +49,13 @@ const SigninPage: React.FC<Props> = ({ validation, authentication }: Props) => {
 
   const presentation = [
     <><SignInEmail value={state} setValue={setState} handleClick={handleClick} /></>,
-    <><SignInPassword value={state} setValue={setState} handleFormSubmit={handleSubmit}/></>,
-    <><SignInLoading /></>
+    <><SignInPassword value={state} setValue={setState} handleSubmit={handleSubmit}/></>
   ]
 
   return (
   <>
     <LoginLayout aside={<SignInSlogan />}>
-      {presentation[state.isLogin]}
+      {state.isLoading ? <SignInLoading /> : presentation[state.isLogin]}
     </LoginLayout>
   </>
   )
