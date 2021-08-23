@@ -15,15 +15,15 @@ interface login {
 type Props = {
   value: login
   setValue: Function
-  handleClick: Function
+  handleFormSubmit: Function
 }
 
-const SignInPassword: React.FC<Props> = ({ value, setValue, handleClick }: Props) => {
+const SignInPassword: React.FC<Props> = ({ value, setValue, handleFormSubmit }: Props) => {
   const formRef = React.useRef(null)
   const handleSubmit = (event): void => {
     event.preventDefault()
     formRef.current.reportValidity()
-    handleClick(2)
+    handleFormSubmit()
   }
 
   function handleChange ({ target }): void {

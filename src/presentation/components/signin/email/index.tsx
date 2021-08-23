@@ -52,7 +52,7 @@ const SignIn: React.FC<Props> = ({ value, setValue, handleClick }: Props) => {
             onChange={handleChange}
             required
           />
-          <span data-testid="emailStatus"></span>
+          <span data-testid="emailStatus">{value.emailError}</span>
           <button type="submit" data-testid="submitEmail" disabled={!value.email}>{t('continue')}</button>
 
           <Link to="/signup" className={styles.createAccount}>
