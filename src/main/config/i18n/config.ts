@@ -16,7 +16,7 @@ export const resources = {
 
 const options = {
   order: ['querystring', 'navigator'],
-  lookupQuerystring: 'lng'
+  lookupQuerystring: 'idi'
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-expressions
