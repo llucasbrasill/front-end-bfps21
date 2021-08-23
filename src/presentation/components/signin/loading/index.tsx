@@ -6,7 +6,7 @@ import styles from '../styles.scss'
 const Loading: React.FC = () => {
   return (
     <>
-      <div className={styles.form}>
+      <div className={styles.form} data-testid="loading">
         <header>
           <Logo />
         </header>
