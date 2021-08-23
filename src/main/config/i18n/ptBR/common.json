@@ -13,5 +13,9 @@
     "continue": "Continuar",
     "Não tem conta? <1>Teste grátis por 7 dias.</1>": "Não tem conta? <1>Teste grátis por 7 dias.</1>",
     "I need help to sign in": "Preciso de ajuda para entrar",
-    "slogan": "Suas <br/><span>propostas</span><br/> em um<br/>único lugar"
+    "slogan": "Suas <br/><span>propostas</span><br/> em um<br/>único lugar",
+    "hello": "Ola!",
+    "SignIn": "Entrar",
+    "Forgot your password?":"Esqueceu sua senha?",
+    "Recover Password":"Recuperar senha"
 }

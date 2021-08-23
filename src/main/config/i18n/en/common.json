@@ -13,6 +13,10 @@
     "continue": "Continue",
     "Already have an account? access your account": "Already have an account? access your account",
     "I need help to sign in": "I need help to sign in",
-    "slogan": "Your <br/> <span>proposals</span> <br/> in one<br/> a place"
+    "slogan": "Your <br/> <span>proposals</span> <br/> in one<br/> a place",
+    "hello": "Hello!",
+    "SignIn": "Sign In",
+    "Forgot your password?":"Forgot your password?",
+    "Recover Password":"Recover Password"
 
 }
