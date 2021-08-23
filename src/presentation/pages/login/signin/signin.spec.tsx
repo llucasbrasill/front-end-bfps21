@@ -1,14 +1,26 @@
 import React from 'react'
+import faker from 'faker'
 import { render, RenderResult, fireEvent, cleanup } from '@testing-library/react'
 import { SignIn } from '../../index'
 import { BrowserRouter } from 'react-router-dom'
 import { ValidationStub } from '@/presentation/test'
-import faker from 'faker'
 import '@/main/config/i18n/config'
+import { Authentication, AuthenticationParams } from '@/domain/usecases'
+import { AccountModel } from '@/domain/models'
+import { mockAccountModel } from '@/domain/test'
+
+class AuthenticationSpy implements Authentication {
+  account = mockAccountModel()
+  params: AuthenticationParams
+  async auth (params: AuthenticationParams): Promise<AccountModel> {
+    this.params = params
+    return await Promise.resolve(this.account)
+  }
+}
 
 type SutTypes = {
   sut: RenderResult
-  validationStub: ValidationStub
+  authenticationSpy: AuthenticationSpy
 }
 
 type SutParams = {
@@ -17,15 +29,16 @@ type SutParams = {
 
 const makeSut = (params?: SutParams): SutTypes => {
   const validationStub = new ValidationStub()
+  const authenticationSpy = new AuthenticationSpy()
   validationStub.errorMessage = params?.validationError
   const sut = render(
     <BrowserRouter >
-        <SignIn validation={validationStub} />
+        <SignIn validation={validationStub} authentication={authenticationSpy} />
     </BrowserRouter>)
 
   return {
     sut,
-    validationStub
+    authenticationSpy
   }
 }
 
@@ -45,18 +58,35 @@ describe('Signnn Page', () => {
   })
 
   test('should call Validation with correct values email', async () => {
-    const { sut, validationStub } = makeSut()
-    validationStub.errorMessage = ''
+    const { sut } = makeSut()
     const emailInput = sut.getByTestId('email') as HTMLInputElement
     const email = faker.internet.email()
     fireEvent.input(emailInput, { target: { value: email } })
     const emailStatus = sut.getByTestId('emailStatus')
-    await expect(emailStatus.textContent).toBe(validationStub.errorMessage)
+    await expect(emailStatus.textContent).toBe('')
+  })
+
+  test('should call error if Validation if falls', async () => {
+    const validationError = faker.random.words()
+    const { sut } = makeSut({ validationError })
+    const emailInput = sut.getByTestId('email') as HTMLInputElement
+    const email = faker.internet.email()
+    fireEvent.input(emailInput, { target: { value: email } })
+    const emailStatus = sut.getByTestId('emailStatus')
+    await expect(emailStatus.textContent).toBe(validationError)
+  })
+
+  test('should a valid email must be given', async () => {
+    const validationError = faker.random.words()
+    const { sut } = makeSut({ validationError })
+    const emailInput = sut.getByTestId('email') as HTMLFormElement
+    const email = faker.internet.email()
+    fireEvent.input(emailInput, { target: { value: email } })
+    await expect(emailInput.reportValidity()).toBeTruthy()
   })
 
   test('should call Validation with correct email password', async () => {
-    const { sut, validationStub } = makeSut()
-    validationStub.errorMessage = ''
+    const { sut } = makeSut()
     const emailInput = sut.getByTestId('email') as HTMLInputElement
     const email = faker.internet.email()
     fireEvent.input(emailInput, { target: { value: email } })
@@ -72,12 +102,11 @@ describe('Signnn Page', () => {
 
     await expect(passwordInput.value).toBe(password)
     const passwordStatus = sut.getByTestId('passwordStatus')
-    await expect(passwordStatus.textContent).toBe(validationStub.errorMessage)
+    await expect(passwordStatus.textContent).toBe('')
   })
 
   test('should show loading on submit', async () => {
-    const { sut, validationStub } = makeSut()
-    validationStub.errorMessage = ''
+    const { sut } = makeSut()
     const emailInput = sut.getByTestId('email') as HTMLInputElement
     const email = faker.internet.email()
     fireEvent.input(emailInput, { target: { value: email } })
@@ -93,10 +122,38 @@ describe('Signnn Page', () => {
 
     await expect(passwordInput.value).toBe(password)
     const passwordStatus = sut.getByTestId('passwordStatus')
-    await expect(passwordStatus.textContent).toBe(validationStub.errorMessage)
+    await expect(passwordStatus.textContent).toBe('')
     const submitButtonPassword = sut.getByTestId('submitPassword') as HTMLButtonElement
     await fireEvent.click(submitButtonPassword)
     const loadingComponent = sut.getByTestId('loading')
     await expect(loadingComponent).toBeTruthy()
+  })
+
+  test('should call Authentication with correct values', async () => {
+    const { sut, authenticationSpy } = makeSut()
+    const emailInput = sut.getByTestId('email') as HTMLInputElement
+    const email = faker.internet.email()
+    fireEvent.input(emailInput, { target: { value: email } })
+
+    const submitButtonEmail = sut.getByTestId('submitEmail') as HTMLButtonElement
+
+    fireEvent.click(submitButtonEmail)
+
+    const passwordInput = sut.getByTestId('password') as HTMLInputElement
+    const password = faker.internet.password()
+
+    fireEvent.input(passwordInput, { target: { value: password } })
+
+    await expect(passwordInput.value).toBe(password)
+    const passwordStatus = sut.getByTestId('passwordStatus')
+    await expect(passwordStatus.textContent).toBe('')
+    const submitButtonPassword = sut.getByTestId('submitPassword') as HTMLButtonElement
+    await fireEvent.click(submitButtonPassword)
+    const loadingComponent = sut.getByTestId('loading')
+    await expect(loadingComponent).toBeTruthy()
+    expect(authenticationSpy.params).toEqual({
+      email,
+      password
+    })
   })
 })
