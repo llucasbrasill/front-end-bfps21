@@ -11,6 +11,7 @@ interface login {
   remember: boolean
   isLogin: number
   passwordError: string
+  mainError: string
 }
 
 type Props = {
@@ -42,7 +43,9 @@ const SignInPassword: React.FC<Props> = ({ value, setValue, handleSubmit }: Prop
         </div>
           <label htmlFor="password">{t('enter your password')}</label>
           <Input className="password" name="password" type="password" id="password" placeholder={t('password')} value={value.password} onChange={handleChange} required />
-          <span data-testid="passwordStatus">{value.passwordError}</span>
+          <div className={styles.errorWrapper}>
+            <span data-testid="passwordStatus">{value.passwordError}</span>
+          </div>
           <button type="submit" data-testid="submitPassword" disabled={!value.password && value.passwordError === ''}>{t('SignIn')}</button>
           <a href="#link" className={styles.createAccount}>
             {t('Forgot your password?')}

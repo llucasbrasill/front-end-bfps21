@@ -16,7 +16,8 @@ const SigninPage: React.FC<Props> = ({ validation, authentication }: Props) => {
     emailError: '',
     passwordError: '',
     isLogin: 0,
-    isLoading: false
+    isLoading: false,
+    mainError: ''
   })
 
   React.useEffect(() => {
@@ -39,12 +40,21 @@ const SigninPage: React.FC<Props> = ({ validation, authentication }: Props) => {
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>): Promise<void> => {
     event.preventDefault()
-    if (state.isLoading || state.emailError || state.passwordError) {
-      return
-    }
+    try {
+      if (state.isLoading || state.emailError || state.passwordError) {
+        return
+      }
 
-    setState({ ...state, isLoading: true })
-    await authentication.auth({ email: state.email, password: state.password })
+      setState({ ...state, isLoading: true })
+      await authentication.auth({ email: state.email, password: state.password })
+    } catch (error) {
+      setState({
+        ...state,
+        isLogin: 0,
+        mainError: error.message,
+        isLoading: false
+      })
+    }
   }
 
   const handleClick = (step): void => {

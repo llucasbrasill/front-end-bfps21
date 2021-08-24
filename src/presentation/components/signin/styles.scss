@@ -31,7 +31,6 @@
     width: 100%;
   }
 
-  
   form label {
     font-size: 12px;
     line-height: 100%;
@@ -54,7 +53,6 @@
     flex-direction: column;
     width: 100%;
   }
-
 
   b {
     color: var(--color-black);
@@ -80,17 +78,25 @@
     text-align: center;
 
     p {
-        margin: var(--padding-small);
-      }
+      margin: var(--padding-small);
+    }
   }
 
-  span[data-testid="emailStatus"], span[data-testid="passwordStatus"] {
-    padding: var(--padding-small) var(--padding-medium);
-    font-size: 12px;
-    color: red;
+  .errorWrapper {
+    margin: var(--padding-small) var(--padding-medium);
+    flex-direction: column;
+    display: flex;
+
+    span[data-testid="emailStatus"],
+    span[data-testid="passwordStatus"],
+    span[data-testid="mainError"] {
+      font-size: 12px;
+      color: red;
+    }
   }
 
-  .recoveryPassword{
+
+  .recoveryPassword {
     color: var(--color-black-text);
     text-decoration: none;
     text-align: center;
@@ -134,8 +140,8 @@
     justify-content: center;
     width: 100%;
   }
-
 }
+
 
 .slogan {
   color: var(--color-white);

@@ -12,6 +12,7 @@ interface login {
   remember: boolean
   isLogin: number
   emailError: string
+  mainError: string
 }
 
 type Props = {
@@ -52,7 +53,10 @@ const SignIn: React.FC<Props> = ({ value, setValue, handleClick }: Props) => {
             onChange={handleChange}
             required
           />
-          <span data-testid="emailStatus">{value.emailError}</span>
+          <div className={styles.errorWrapper}>
+            <span data-testid="emailStatus">{value.emailError}</span>
+            { value.mainError && <span data-testid="mainError">{value.mainError}</span> }
+          </div>
           <button type="submit" data-testid="submitEmail" disabled={!value.email}>{t('continue')}</button>
 
           <Link to="/signup" className={styles.createAccount}>
