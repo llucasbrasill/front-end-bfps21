@@ -22,19 +22,13 @@ const SigninPage: React.FC<Props> = ({ validation, authentication }: Props) => {
 
   React.useEffect(() => {
     validation && setState(
-      {
-        ...state,
-        emailError: validation.validate('email', state.email)
-      }
+      { ...state, emailError: validation.validate('email', state.email) }
     )
   }, [state.email])
 
   React.useEffect(() => {
     validation && setState(
-      {
-        ...state,
-        passwordError: validation.validate('password', state.password)
-      }
+      { ...state, passwordError: validation.validate('password', state.password) }
     )
   }, [state.password])
 
@@ -46,7 +40,8 @@ const SigninPage: React.FC<Props> = ({ validation, authentication }: Props) => {
       }
 
       setState({ ...state, isLoading: true })
-      await authentication.auth({ email: state.email, password: state.password })
+      const account = await authentication.auth({ email: state.email, password: state.password })
+      localStorage.setItem('accessToken', account.accessToken)
     } catch (error) {
       setState({
         ...state,
