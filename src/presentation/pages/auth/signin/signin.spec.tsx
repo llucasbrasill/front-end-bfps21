@@ -173,13 +173,8 @@ describe('SignIn Page', () => {
     expect(passwordInput.value).toBe(password)
     const submitButtonPassword = sut.getByTestId('submitPassword') as HTMLButtonElement
 
-    await act(async () => {
-      await fireEvent.click(submitButtonPassword)
-    })
-
-    await waitFor(() => {
-      expect(sut.getByTestId('emailWrapper')).toBeDefined()
-    })
+    await act(async () => { await fireEvent.click(submitButtonPassword) })
+    await waitFor(() => expect(sut.getByTestId('emailWrapper')).toBeDefined())
     const mainError = sut.getByTestId('mainError')
     expect(mainError.textContent).toBe(error.message)
     expect(sut.getByTestId('submitEmail')).toBeTruthy()
