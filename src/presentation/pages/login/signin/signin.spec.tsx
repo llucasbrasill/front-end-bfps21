@@ -1,12 +1,13 @@
 import React from 'react'
 import faker from 'faker'
+import 'jest-localstorage-mock'
 import { render, RenderResult, fireEvent, cleanup, waitFor } from '@testing-library/react'
+import { act } from 'react-dom/test-utils'
 import { SignIn } from '../../index'
 import { BrowserRouter } from 'react-router-dom'
 import { ValidationStub, AuthenticationSpy } from '@/presentation/test'
 import '@/main/config/i18n/config'
 import { InvalidCredentialsError } from '@/domain/errors'
-import { act } from 'react-dom/test-utils'
 
 type SutTypes = {
   sut: RenderResult
@@ -63,6 +64,9 @@ const simulateStatusForField = (sut: RenderResult, fieldName: string, validation
 
 describe('SignIn Page', () => {
   afterEach(cleanup)
+  beforeEach(() => {
+    localStorage.clear()
+  })
   test('should start with initial state', () => {
     const validationError = ''
     const { sut } = makeSut({ validationError })
@@ -165,7 +169,6 @@ describe('SignIn Page', () => {
     expect(passwordInput.value).toBe(password)
     const submitButtonPassword = sut.getByTestId('submitPassword') as HTMLButtonElement
 
-    // await waitForElement(() => getByTestId('list'));
     await act(async () => {
       await fireEvent.click(submitButtonPassword)
     })
@@ -176,5 +179,20 @@ describe('SignIn Page', () => {
     const mainError = sut.getByTestId('mainError')
     expect(mainError.textContent).toBe(error.message)
     expect(sut.getByTestId('submitEmail')).toBeTruthy()
+  })
+
+  test('should add accessToken to localstorage on success', async () => {
+    const { sut, authenticationSpy } = makeSut()
+    const email = faker.internet.email()
+    const password = faker.internet.password()
+    await simulateEmailValidSubmit(sut, email)
+    await simulatePasswordValidSubmit(sut, password)
+
+    const loadingComponent = sut.getByTestId('loading')
+
+    await waitFor(() => {
+      expect(loadingComponent).toBeTruthy()
+    })
+    expect(localStorage.setItem).toHaveBeenCalledWith('accessToken', authenticationSpy.account.accessToken)
   })
 })
