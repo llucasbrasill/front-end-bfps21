@@ -1,10 +1,12 @@
 import React from 'react'
 import faker from 'faker'
-import { render, RenderResult, fireEvent, cleanup } from '@testing-library/react'
+import { render, RenderResult, fireEvent, cleanup, waitFor } from '@testing-library/react'
 import { SignIn } from '../../index'
 import { BrowserRouter } from 'react-router-dom'
 import { ValidationStub, AuthenticationSpy } from '@/presentation/test'
 import '@/main/config/i18n/config'
+import { InvalidCredentialsError } from '@/domain/errors'
+import { act } from 'react-dom/test-utils'
 
 type SutTypes = {
   sut: RenderResult
@@ -37,11 +39,11 @@ const simulateEmailValidSubmit = (sut: RenderResult, email = faker.internet.emai
 }
 
 const simulatePasswordValidSubmit = async (sut: RenderResult, password = faker.internet.password()): Promise<void> => {
-  populatePasswordField(sut, password)
+  await populatePasswordField(sut, password)
   const passwordInput = sut.getByTestId('password') as HTMLInputElement
   expect(passwordInput.value).toBe(password)
   const submitButtonPassword = sut.getByTestId('submitPassword') as HTMLButtonElement
-  fireEvent.click(submitButtonPassword)
+  await fireEvent.click(submitButtonPassword)
 }
 
 const populateEmailField = (sut: RenderResult, email = faker.internet.email()): void => {
@@ -149,5 +151,30 @@ describe('SignIn Page', () => {
     const { sut, authenticationSpy } = makeSut({ validationError })
     populateEmailField(sut)
     expect(authenticationSpy.callsCount).toBe(0)
+  })
+
+  test('should preset error if Authentication fails', async () => {
+    const { sut, authenticationSpy } = makeSut()
+    const error = new InvalidCredentialsError()
+    jest.spyOn(authenticationSpy, 'auth').mockReturnValueOnce(Promise.reject(error))
+    const email = faker.internet.email()
+    const password = faker.internet.password()
+    await simulateEmailValidSubmit(sut, email)
+    await populatePasswordField(sut, password)
+    const passwordInput = sut.getByTestId('password') as HTMLInputElement
+    expect(passwordInput.value).toBe(password)
+    const submitButtonPassword = sut.getByTestId('submitPassword') as HTMLButtonElement
+
+    // await waitForElement(() => getByTestId('list'));
+    await act(async () => {
+      await fireEvent.click(submitButtonPassword)
+    })
+
+    await waitFor(() => {
+      expect(sut.getByTestId('emailWrapper')).toBeDefined()
+    })
+    const mainError = sut.getByTestId('mainError')
+    expect(mainError.textContent).toBe(error.message)
+    expect(sut.getByTestId('submitEmail')).toBeTruthy()
   })
 })
