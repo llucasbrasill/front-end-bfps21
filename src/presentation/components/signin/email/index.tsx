@@ -59,7 +59,7 @@ const SignIn: React.FC<Props> = ({ value, setValue, handleClick }: Props) => {
           </div>
           <button type="submit" data-testid="submitEmail" disabled={!value.email}>{t('continue')}</button>
 
-          <Link to="/signup" className={styles.createAccount}>
+          <Link to="/signup" data-testid="signup" className={styles.createAccount}>
             <Trans>Não tem conta? <b>Teste grátis por 7 dias.</b></Trans>
           </Link>
         </form>
