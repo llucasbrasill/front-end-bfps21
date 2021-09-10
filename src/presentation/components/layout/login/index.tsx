@@ -11,10 +11,10 @@ const LoginLayout: React.FC<Props> = ({ children, id, aside }: Props) => {
   return (
     <>
       <section id={id} className={styles.wrapper}>
-        <div className={`${styles.content}  ${styles.col}`}>
+        <div className={`${styles.content}  ${styles.column}`}>
           {children}
         </div>
-        <div className={`${styles.aside} ${styles.col}`}>{aside}</div>
+        <div className={`${styles.aside} ${styles.column}`}>{aside}</div>
       </section>
     </>
   )

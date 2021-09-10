@@ -1,20 +1,22 @@
+@import "../../styles/main.scss";
+
 .wrapper {
 
   display: inline-flex;
     
     input {
-        border: 1px solid var(--border-color);
+        border: 1px solid $grayThird;
         box-sizing: border-box;
-        height: 41px;
-        margin: var(--padding-small) var(--padding-medium);
-        border-radius: var(--border-radius);
-        padding: var(--padding-small) var(--padding-medium);
+        height: ($paddingBig + $paddingSmall);
+        margin: $paddingSmall $paddingMedium;
+        border-radius: ($paddingSmall / 2);
+        padding: $paddingSmall $paddingMedium;
         width: 100%;
      
       }
     
       input:focus {
-        border: 1px solid var(--color-black);
+        border: 1px solid $primary;
         outline: 0;
       }
     

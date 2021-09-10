@@ -16,11 +16,11 @@ export const resources = {
 
 const options = {
   order: ['querystring', 'navigator'],
-  lookupQuerystring: 'idi'
+  lookupQuerystring: 'lng'
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-i18n.use(initReactI18next).use(LanguageDetector).init({
+i18n.use(LanguageDetector).use(initReactI18next).init({
   lng: 'pt',
   detection: options,
   resources
