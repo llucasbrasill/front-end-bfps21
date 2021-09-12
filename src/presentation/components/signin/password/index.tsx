@@ -37,14 +37,14 @@ const SignInPassword: React.FC<Props> = ({ value, setValue, handleSubmit }: Prop
         <form data-testid="formPassword" onSubmit={handleSubmit} ref={formRef}>
         <div className={styles.message}>
         <h2>{t('hello')}</h2>
-          <p onClick={() => setValue({ ...value, isLogin: 0 })} className={styles.user}>
-            {value.email}
-          </p>
+          <a href="/signin" className={styles.user}>
+          {value.email}
+          </a>
         </div>
           <label htmlFor="password">{t('enter your password')}</label>
           <Input className="password" name="password" type="password" id="password" placeholder={t('password')} value={value.password} onChange={handleChange} required />
           <div className={styles.errorWrapper}>
-            <span data-testid="passwordStatus">{value.passwordError}</span>
+            <span data-testid="passwordStatus">{value.password && value.passwordError}</span>
           </div>
           <button type="submit" data-testid="submitPassword" disabled={!value.password && value.passwordError === ''}>{t('SignIn')}</button>
           <a href="#link" className={styles.createAccount}>
@@ -55,7 +55,7 @@ const SignInPassword: React.FC<Props> = ({ value, setValue, handleSubmit }: Prop
         </form>
 
         <footer>
-          <a href="#link" className={styles.recoveryPassword}>
+          <a href="http://" className={styles.recoveryPassword}>
           <Trans>I need help to sign in</Trans>
           </a>
         </footer>

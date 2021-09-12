@@ -14,17 +14,13 @@ const SignupPage: React.FC = () => {
     isLogin: 0
   })
 
-  const handleClick = (step): void => {
+  const handleClick = (step: number): void => {
     setLogin({ ...login, isLogin: step })
   }
 
   const presentation = [
-    <>
-      <SignUp value={login} setValue={setLogin} handleClick={handleClick} />
-    </>,
-    <>
-      <SignInLoading />
-    </>
+    <><SignUp value={login} setValue={setLogin} handleClick={handleClick} /></>,
+    <><SignInLoading /></>
   ]
 
   return (

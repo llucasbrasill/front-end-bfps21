@@ -54,7 +54,7 @@ const SignIn: React.FC<Props> = ({ value, setValue, handleClick }: Props) => {
             required
           />
           <div className={styles.errorWrapper}>
-            <span data-testid="emailStatus">{value.emailError}</span>
+            <span data-testid="emailStatus">{value.email && value.emailError}</span>
             { value.mainError && <span data-testid="mainError">{value.mainError}</span> }
           </div>
           <button type="submit" data-testid="submitEmail" disabled={!value.email}>{t('continue')}</button>

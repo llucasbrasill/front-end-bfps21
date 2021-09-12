@@ -22,25 +22,9 @@ const SigninPage: React.FC<Props> = ({ validation, authentication }: Props) => {
     mainError: ''
   })
 
-  React.useEffect(() => {
-    validation && setState(
-      { ...state, emailError: validation.validate('email', state.email) }
-    )
-  }, [state.email])
-
-  React.useEffect(() => {
-    validation && setState(
-      { ...state, passwordError: validation.validate('password', state.password) }
-    )
-  }, [state.password])
-
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>): Promise<void> => {
     event.preventDefault()
     try {
-      if (state.isLoading || state.emailError || state.passwordError) {
-        return
-      }
-
       setState({ ...state, isLoading: true })
       const account = await authentication.auth({ email: state.email, password: state.password })
       localStorage.setItem('accessToken', account.accessToken)
@@ -55,9 +39,16 @@ const SigninPage: React.FC<Props> = ({ validation, authentication }: Props) => {
     }
   }
 
-  const handleClick = (step): void => {
+  const handleClick = (step: number): void => {
     setState({ ...state, isLogin: step })
   }
+  React.useEffect(() => {
+    setState({ ...state, emailError: validation.validate('email', state.email) })
+  }, [state.email])
+
+  React.useEffect(() => {
+    setState({ ...state, passwordError: validation.validate('password', state.password) })
+  }, [state.password])
 
   const presentation = [
     <><SignInEmail value={state} setValue={setState} handleClick={handleClick} /></>,
