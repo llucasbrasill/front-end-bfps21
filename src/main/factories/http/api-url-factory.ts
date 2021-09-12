@@ -1,3 +1,3 @@
-export const makeApiUrl = (): string => {
-  return process.env.URL_LOGIN
+export const makeApiUrl = (path: string): string => {
+  return `${process.env.URL}${path}`
 }
