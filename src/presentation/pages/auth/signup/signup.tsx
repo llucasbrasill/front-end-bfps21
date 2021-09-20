@@ -5,9 +5,14 @@ import {
   SignInSlogan,
   SignUp
 } from '@/presentation/components'
+import { Validation } from '@/presentation/protocols/validation'
 
-const SignupPage: React.FC = () => {
-  const [login, setLogin] = React.useState({
+type Props = {
+  validation: Validation
+}
+
+const SignupPage: React.FC<Props> = ({ validation }: Props) => {
+  const [state, setState] = React.useState({
     isLogin: 0,
     email: '',
     password: '',
@@ -20,18 +25,18 @@ const SignupPage: React.FC = () => {
   })
 
   const handleClick = (step: number): void => {
-    setLogin({ ...login, isLogin: step })
+    setState({ ...state, isLogin: step })
   }
 
   const presentation = [
-    <><SignUp value={login} setValue={setLogin} handleClick={handleClick} /></>,
+    <><SignUp value={state} setValue={setState} handleClick={handleClick} /></>,
     <><SignInLoading /></>
   ]
 
   return (
     <>
       <LoginLayout aside={<SignInSlogan />}>
-        {presentation[login.isLogin]}
+        {presentation[state.isLogin]}
       </LoginLayout>
     </>
   )
