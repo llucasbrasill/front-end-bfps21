@@ -3,10 +3,11 @@ import faker from 'faker'
 import { cleanup, render, RenderResult } from '@testing-library/react'
 import Signup from './signup'
 import '@/main/config/i18n/config'
-import { Helper, ValidationStub } from '@/presentation/test'
+import { Helper, ValidationStub, AddAccountSpy } from '@/presentation/test'
 
 type SutTypes = {
   sut: RenderResult
+  addAccountSpy: AddAccountSpy
 }
 type SutParams = {
   validationError: string
@@ -15,13 +16,16 @@ type SutParams = {
 const makeSut = (params?: SutParams): SutTypes => {
   const validationStub = new ValidationStub()
   validationStub.errorMessage = params?.validationError
+  const addAccountSpy = new AddAccountSpy()
   const sut = render(
         <Signup
           validation={validationStub}
+          addAccount={addAccountSpy}
         />
   )
   return {
-    sut
+    sut,
+    addAccountSpy
   }
 }
 
@@ -69,5 +73,20 @@ describe('SignUp Page', () => {
     const { sut } = makeSut()
     await Helper.simulateValidSubmit(sut)
     Helper.testElementExists(sut, 'loading')
+  })
+
+  test('should call AddAccount with correct values', async () => {
+    const { sut, addAccountSpy } = makeSut()
+    const email = faker.internet.email()
+    const password = faker.internet.password()
+    await Helper.simulateValidSubmit(sut, email, password)
+
+    const loadingComponent = sut.getByTestId('loading')
+    expect(loadingComponent).toBeTruthy()
+    expect(addAccountSpy.params).toEqual({
+      email,
+      password,
+      passwordConfirm: password
+    })
   })
 })
