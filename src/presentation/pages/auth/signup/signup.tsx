@@ -35,12 +35,24 @@ const SignupPage: React.FC<Props> = ({ validation, addAccount }: Props) => {
   }, [state.password])
 
   const handleClick = async (step: number): Promise<void> => {
-    setState({ ...state, isLogin: step })
-    await addAccount.add({
-      email: state.email,
-      password: state.password,
-      passwordConfirm: state.passwordConfirm
-    })
+    if (state.isLoading || state.emailError || state.passwordError) {
+      return
+    }
+    try {
+      setState({ ...state, isLogin: step })
+      await addAccount.add({
+        email: state.email,
+        password: state.password,
+        passwordConfirm: state.passwordConfirm
+      })
+    } catch (error) {
+      setState({
+        ...state,
+        isLogin: 0,
+        mainError: error.message,
+        isLoading: false
+      })
+    }
   }
 
   const presentation = [
