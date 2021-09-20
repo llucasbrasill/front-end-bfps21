@@ -89,4 +89,14 @@ describe('SignUp Page', () => {
       passwordConfirm: password
     })
   })
+
+  test('should call  AddAccount only once', async () => {
+    const { sut, addAccountSpy } = makeSut()
+    const email = faker.internet.email()
+    const password = faker.internet.password()
+    await Helper.simulateValidSubmit(sut, email, password)
+    await Helper.simulateValidSubmit(sut, email, password)
+
+    expect(addAccountSpy.callsCount).toBe(1)
+  })
 })

@@ -41,13 +41,15 @@ export const simulatePasswordValidSubmit = async (sut: RenderResult, password = 
 }
 
 export const simulateValidSubmit = async (sut: RenderResult, email = faker.internet.email(), password = faker.internet.password()): Promise<void> => {
-  populateEmailField(sut, email)
-  populatePasswordField(sut, password)
-  populatePasswordConfirmField(sut, password)
+  try {
+    populateEmailField(sut, email)
+    populatePasswordField(sut, password)
+    populatePasswordConfirmField(sut, password)
 
-  const form = sut.getByTestId('form')
-  fireEvent.submit(form)
-  await waitFor(() => form)
+    const form = sut.getByTestId('form')
+    fireEvent.submit(form)
+    await waitFor(() => form)
+  } catch {}
 }
 
 export const testElementExists = (sut: RenderResult, fieldName: string): void => {
