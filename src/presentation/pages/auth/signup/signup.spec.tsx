@@ -64,4 +64,10 @@ describe('SignUp Page', () => {
     Helper.populatePasswordConfirmField(sut, 'passwordConfim')
     Helper.testButtonIsDisabled(sut, 'submit', false)
   })
+
+  test('should show loading on submit', async () => {
+    const { sut } = makeSut()
+    await Helper.simulateValidSubmit(sut)
+    Helper.testElementExists(sut, 'loading')
+  })
 })
