@@ -1,5 +1,5 @@
 import faker from 'faker'
-import { RenderResult, fireEvent } from '@testing-library/react'
+import { RenderResult, fireEvent, waitFor } from '@testing-library/react'
 import '@/main/config/i18n/config'
 
 export const testChildCount = (sut: RenderResult, fieldName: string, count: number): void => {
@@ -38,6 +38,21 @@ export const simulatePasswordValidSubmit = async (sut: RenderResult, password = 
   expect(passwordInput.value).toBe(password)
   const submitButtonPassword = sut.getByTestId('submitPassword') as HTMLButtonElement
   await fireEvent.click(submitButtonPassword)
+}
+
+export const simulateValidSubmit = async (sut: RenderResult, email = faker.internet.email(), password = faker.internet.password()): Promise<void> => {
+  populateEmailField(sut, email)
+  populatePasswordField(sut, password)
+  populatePasswordConfirmField(sut, password)
+
+  const form = sut.getByTestId('form')
+  fireEvent.submit(form)
+  await waitFor(() => form)
+}
+
+export const testElementExists = (sut: RenderResult, fieldName: string): void => {
+  const loadingComponent = sut.getByTestId(fieldName)
+  expect(loadingComponent).toBeTruthy()
 }
 
 export const populateEmailField = (sut: RenderResult, email = faker.internet.email()): void => {

@@ -45,6 +45,7 @@ const SignUp: React.FC<Props> = ({ value, setValue, handleClick }: Props) => {
         </header>
 
         <form
+          data-testid="form"
           onSubmit={(event) => {
             event.preventDefault()
             handleSubmit()
