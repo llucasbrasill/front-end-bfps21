@@ -1,6 +1,5 @@
 import faker from 'faker'
 import { RenderResult, fireEvent } from '@testing-library/react'
-
 import '@/main/config/i18n/config'
 
 export const testChildCount = (sut: RenderResult, fieldName: string, count: number): void => {
@@ -15,7 +14,16 @@ export const testButtonIsDisabled = (sut: RenderResult, fieldName: string, isDis
 
 export const testStatusForField = (sut: RenderResult, fieldName: string, validationError?: string): void => {
   const field = sut.getByTestId(fieldName) as HTMLInputElement
-  expect(field.querySelector('input').classList.length).toBe(1)
+  expect(field.classList.contains('requiredField')).toBeFalsy()
+}
+export const testStatusForFieldEmail = (sut: RenderResult, fieldName: string, validationError?: string): void => {
+  const field = sut.getByTestId(fieldName) as HTMLInputElement
+  expect(field.classList.contains('requiredField')).toBeTruthy()
+}
+
+export const testStatusForFieldPassword = (sut: RenderResult, fieldName: string, validationError?: string): void => {
+  const field = sut.getByTestId(fieldName) as HTMLInputElement
+  expect(field.classList.contains('requiredField')).toBeTruthy()
 }
 
 export const simulateEmailValidSubmit = (sut: RenderResult, email = faker.internet.email()): void => {
@@ -39,6 +47,10 @@ export const populateEmailField = (sut: RenderResult, email = faker.internet.ema
 
 export const populatePasswordField = (sut: RenderResult, password = faker.internet.password()): void => {
   const passwordInput = sut.getByTestId('password') as HTMLInputElement
+  fireEvent.input(passwordInput, { target: { value: password } })
+}
+export const populatePasswordConfirmField = (sut: RenderResult, password = faker.internet.password()): void => {
+  const passwordInput = sut.getByTestId('passwordConfirm') as HTMLInputElement
   fireEvent.input(passwordInput, { target: { value: password } })
 }
 

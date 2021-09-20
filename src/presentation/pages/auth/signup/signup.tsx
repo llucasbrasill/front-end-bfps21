@@ -18,11 +18,19 @@ const SignupPage: React.FC<Props> = ({ validation }: Props) => {
     password: '',
     passwordConfirm: '',
     isLoading: false,
-    emailError: 'Required field',
-    passwordError: 'Required field',
-    passwordConfirmError: 'Required field',
+    emailError: '',
+    passwordError: '',
+    passwordConfirmError: '',
     mainError: ''
   })
+
+  React.useEffect(() => {
+    setState({ ...state, emailError: validation.validate('email', state.email) })
+  }, [state.email])
+
+  React.useEffect(() => {
+    setState({ ...state, passwordError: validation.validate('password', state.password) })
+  }, [state.password])
 
   const handleClick = (step: number): void => {
     setState({ ...state, isLogin: step })
