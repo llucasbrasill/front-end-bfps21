@@ -8,10 +8,15 @@ import {
 
 const SignupPage: React.FC = () => {
   const [login, setLogin] = React.useState({
+    isLogin: 0,
     email: '',
     password: '',
     passwordConfirm: '',
-    isLogin: 0
+    isLoading: false,
+    emailError: 'Required field',
+    passwordError: 'Required field',
+    passwordConfirmError: 'Required field',
+    mainError: ''
   })
 
   const handleClick = (step: number): void => {

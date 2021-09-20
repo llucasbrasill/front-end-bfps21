@@ -3,7 +3,6 @@ import Input from '../input'
 import Logo from '../logo'
 import Terms from '../term'
 import styles from './styles.scss'
-import { Link } from 'react-router-dom'
 import { useTranslation, Trans } from 'react-i18next'
 
 interface login {
@@ -11,6 +10,11 @@ interface login {
   password: string
   passwordConfirm: string
   isLogin: number
+  emailError: string
+  passwordError: string
+  passwordConfirmError: string
+  isLoading: boolean
+  mainError: string
 }
 
 type Props = {
@@ -34,7 +38,7 @@ const SignUp: React.FC<Props> = ({ value, setValue, handleClick }: Props) => {
 
   return (
     <>
-      <div className={styles.form}>
+      <div data-testid="signupWrapper" className={styles.form}>
         <header>
           <Logo />
           <h2>{t('experimente')}</h2>
@@ -47,10 +51,10 @@ const SignUp: React.FC<Props> = ({ value, setValue, handleClick }: Props) => {
           }}
           ref={formRef}
         >
-          <div>
+          <div data-testid="email">
             <label htmlFor="email">{t('email')}</label>
             <Input
-              className="email"
+              className={`email ${value.email && (value.emailError ? styles.requiredField : 'validty-field')}`}
               id="email"
               type="email"
               placeholder={t('enter your email')}
@@ -61,10 +65,11 @@ const SignUp: React.FC<Props> = ({ value, setValue, handleClick }: Props) => {
             />
           </div>
 
-          <div>
-            <label htmlFor="email">{t('password')}</label>
+          <div data-testid="password">
+            <label htmlFor="password">{t('password')}</label>
             <Input
-              className="password"
+
+              className={`password ${value.password && (value.passwordError ? styles.requiredField : 'validty-field')}`}
               id="password"
               type="password"
               placeholder={t('enter your password')}
@@ -75,11 +80,12 @@ const SignUp: React.FC<Props> = ({ value, setValue, handleClick }: Props) => {
             />
           </div>
 
-          <div>
+          <div data-testid="passwordConfirm">
             <label htmlFor="passwordConfirm">{t('passwordConfirm')}</label>
 
             <Input
-              className="passwordConfirm"
+
+              className={`passwordConfirm ${value.passwordConfirm && (value.passwordConfirmError ? styles.requiredField : 'validty-field')}`}
               id="passwordConfirm"
               type="password"
               placeholder={t('enter your password')}
@@ -89,14 +95,15 @@ const SignUp: React.FC<Props> = ({ value, setValue, handleClick }: Props) => {
               required
             />
           </div>
-
-          <button type="submit">{t('start')}</button>
+          <div data-testid="errorWrapper" className={styles.errorWrapper}>
+          </div>
+          <button data-testid="submit" type="submit" disabled>{t('start')}</button>
         </form>
 
         <footer>
-          <Link to="/signin" className={styles.footerlink}>
+          <a href="/signin" className={styles.footerlink}>
           <Trans>Já possui conta? <b>acesse sua conta.</b></Trans>
-          </Link>
+          </a>
         </footer>
       </div>
 

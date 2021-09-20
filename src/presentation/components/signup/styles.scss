@@ -1,3 +1,5 @@
+@import "../../styles/main.scss";
+
 .form {
   border: 1px solid var(--color-border);
   background-color: var(--color-white);
@@ -138,7 +140,13 @@
     justify-content: center;
     width: 100%;
   }
+
+  .requiredField {
+    border: 1px solid $red!important;
+  }
 }
+
+
 
 .slogan {
   color: var(--color-white);
@@ -151,6 +159,7 @@
   color: var(--color-black);
   padding: 0 var(--padding-medium);
 }
+
 
 
 @media only screen and (max-width: 480px) {
