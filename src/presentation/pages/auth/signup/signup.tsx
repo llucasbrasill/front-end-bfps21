@@ -6,12 +6,14 @@ import {
   SignUp
 } from '@/presentation/components'
 import { Validation } from '@/presentation/protocols/validation'
+import { AddAccount } from '@/domain/usecases'
 
 type Props = {
   validation: Validation
+  addAccount: AddAccount
 }
 
-const SignupPage: React.FC<Props> = ({ validation }: Props) => {
+const SignupPage: React.FC<Props> = ({ validation, addAccount }: Props) => {
   const [state, setState] = React.useState({
     isLogin: 0,
     email: '',
@@ -32,8 +34,13 @@ const SignupPage: React.FC<Props> = ({ validation }: Props) => {
     setState({ ...state, passwordError: validation.validate('password', state.password) })
   }, [state.password])
 
-  const handleClick = (step: number): void => {
+  const handleClick = async (step: number): Promise<void> => {
     setState({ ...state, isLogin: step })
+    await addAccount.add({
+      email: state.email,
+      password: state.password,
+      passwordConfirm: state.passwordConfirm
+    })
   }
 
   const presentation = [
