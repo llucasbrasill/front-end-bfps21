@@ -99,4 +99,13 @@ describe('SignUp Page', () => {
 
     expect(addAccountSpy.callsCount).toBe(1)
   })
+
+  test('should call AddAccount if form is invalid', async () => {
+    const validationError = faker.random.words()
+    const email = faker.internet.email()
+    const password = faker.internet.password()
+    const { sut, addAccountSpy } = makeSut({ validationError })
+    await Helper.simulateValidSubmit(sut, email, password)
+    expect(addAccountSpy.callsCount).toBe(0)
+  })
 })
