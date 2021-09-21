@@ -148,4 +148,32 @@ describe('SignUp Page', () => {
     expect(history.length).toBe(1)
     expect(history.location.pathname).toBe('/')
   })
+
+  test('should acall SaveAccessToken on success', async () => {
+    const { sut, addAccountSpy, saveAccessTokenMock } = makeSut()
+    const email = faker.internet.email()
+    const password = faker.internet.password()
+    await Helper.simulateValidSubmit(sut, email, password)
+
+    const loadingComponent = sut.getByTestId('loading')
+
+    await waitFor(() => {
+      expect(loadingComponent).toBeTruthy()
+    })
+    expect(saveAccessTokenMock.accessToken).toBe(addAccountSpy.account.accessToken)
+    expect(history.length).toBe(1)
+    expect(history.location.pathname).toBe('/')
+  })
+
+  test('should preset error if SaveAccesToken fails', async () => {
+    const { sut, saveAccessTokenMock } = makeSut()
+    const error = new EmailInUseError()
+    jest.spyOn(saveAccessTokenMock, 'save').mockRejectedValueOnce(error)
+    const email = faker.internet.email()
+    const password = faker.internet.password()
+    await Helper.simulateValidSubmit(sut, email, password)
+    const loadingComponent = sut.getByTestId('mainError')
+    expect(loadingComponent.textContent).toBe(error.message)
+    Helper.testChildCount(sut, 'errorWrapper', 1)
+  })
 })
