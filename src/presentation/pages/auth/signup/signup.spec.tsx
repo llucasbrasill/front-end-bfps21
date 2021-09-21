@@ -4,6 +4,7 @@ import { cleanup, render, RenderResult } from '@testing-library/react'
 import Signup from './signup'
 import '@/main/config/i18n/config'
 import { Helper, ValidationStub, AddAccountSpy } from '@/presentation/test'
+import { EmailInUseError } from '@/domain/errors'
 
 type SutTypes = {
   sut: RenderResult
@@ -107,5 +108,18 @@ describe('SignUp Page', () => {
     const { sut, addAccountSpy } = makeSut({ validationError })
     await Helper.simulateValidSubmit(sut, email, password)
     expect(addAccountSpy.callsCount).toBe(0)
+  })
+
+  test('should preset error if AddAccount fails', async () => {
+    const { sut, addAccountSpy } = makeSut()
+    const error = new EmailInUseError()
+    jest.spyOn(addAccountSpy, 'add').mockReturnValueOnce(Promise.reject(error))
+    const email = faker.internet.email()
+    const password = faker.internet.password()
+    await Helper.simulateValidSubmit(sut, email, password)
+
+    const loadingComponent = sut.getByTestId('mainError')
+    expect(loadingComponent.textContent).toBe(error.message)
+    Helper.testChildCount(sut, 'errorWrapper', 1)
   })
 })
