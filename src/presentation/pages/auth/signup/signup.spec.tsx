@@ -1,6 +1,6 @@
 import React from 'react'
 import faker from 'faker'
-import { cleanup, render, RenderResult, waitFor } from '@testing-library/react'
+import { cleanup, fireEvent, render, RenderResult, waitFor } from '@testing-library/react'
 import Signup from './signup'
 import '@/main/config/i18n/config'
 import { Helper, ValidationStub, AddAccountSpy, SaveAccessTokenMock } from '@/presentation/test'
@@ -175,5 +175,13 @@ describe('SignUp Page', () => {
     const loadingComponent = sut.getByTestId('mainError')
     expect(loadingComponent.textContent).toBe(error.message)
     Helper.testChildCount(sut, 'errorWrapper', 1)
+  })
+
+  test('should  go to login page', () => {
+    const { sut } = makeSut()
+    const loginLink = sut.getByTestId('loginLink')
+    fireEvent.click(loginLink)
+    expect(history.length).toBe(1)
+    expect(history.location.pathname).toBe('/signin')
   })
 })
