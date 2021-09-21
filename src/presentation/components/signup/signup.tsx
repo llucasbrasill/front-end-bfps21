@@ -4,6 +4,7 @@ import Logo from '../logo'
 import Terms from '../term'
 import styles from './styles.scss'
 import { useTranslation, Trans } from 'react-i18next'
+import { Link } from 'react-router-dom'
 
 interface login {
   email: string
@@ -106,9 +107,9 @@ const SignUp: React.FC<Props> = ({ value, setValue, handleClick }: Props) => {
         </form>
 
         <footer>
-          <a href="/signin" className={styles.footerlink}>
+          <Link replace to="/signin" data-testid="loginLink" className={styles.footerlink}>
           <Trans>Já possui conta? <b>acesse sua conta.</b></Trans>
-          </a>
+          </Link>
         </footer>
       </div>
 
