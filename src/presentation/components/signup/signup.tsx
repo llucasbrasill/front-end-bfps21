@@ -100,6 +100,7 @@ const SignUp: React.FC<Props> = ({ value, setValue, handleClick }: Props) => {
             />
           </div>
           <div data-testid="errorWrapper" className={styles.errorWrapper}>
+            { value.mainError && <span data-testid="mainError">{value.mainError}</span> }
           </div>
           <button data-testid="submit" type="submit" disabled={!!value.emailError || !!value.passwordError || !!value.passwordConfirmError}>{t('start')}</button>
         </form>
