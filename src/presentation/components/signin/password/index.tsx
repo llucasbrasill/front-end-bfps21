@@ -1,5 +1,6 @@
 import React from 'react'
 import { Trans, useTranslation } from 'react-i18next'
+import { Link } from 'react-router-dom'
 import Input from '../../input'
 import Logo from '../../logo'
 import Terms from '../../term'
@@ -37,9 +38,9 @@ const SignInPassword: React.FC<Props> = ({ value, setValue, handleSubmit }: Prop
         <form data-testid="formPassword" onSubmit={handleSubmit} ref={formRef}>
         <div className={styles.message}>
         <h2>{t('hello')}</h2>
-          <a href="/signin" className={styles.user}>
+          <Link replace to="/signin" data-testid="initialSignIn" className={styles.user}>
           {value.email}
-          </a>
+          </Link>
         </div>
           <label htmlFor="password">{t('enter your password')}</label>
           <Input className="password" name="password" type="password" id="password" placeholder={t('password')} value={value.password} onChange={handleChange} required />

@@ -190,7 +190,17 @@ describe('SignIn Page', () => {
     expect(sut.getByTestId('submitEmail')).toBeTruthy()
   })
 
-  test('should to to signup page', () => {
+  test('should  go to initial SignIn page', () => {
+    const { sut } = makeSut()
+    const email = faker.internet.email()
+    Helper.simulateEmailValidSubmit(sut, email)
+    const loginLink = sut.getByTestId('initialSignIn')
+    fireEvent.click(loginLink)
+    expect(history.length).toBe(1)
+    expect(history.location.pathname).toBe('/signin')
+  })
+
+  test('should go to signup page', () => {
     const { sut } = makeSut()
     const register = sut.getByTestId('signup')
     fireEvent.click(register)
