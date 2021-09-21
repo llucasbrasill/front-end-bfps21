@@ -1,32 +1,42 @@
 import React from 'react'
 import faker from 'faker'
-import { cleanup, render, RenderResult } from '@testing-library/react'
+import { cleanup, render, RenderResult, waitFor } from '@testing-library/react'
 import Signup from './signup'
 import '@/main/config/i18n/config'
-import { Helper, ValidationStub, AddAccountSpy } from '@/presentation/test'
+import { Helper, ValidationStub, AddAccountSpy, SaveAccessTokenMock } from '@/presentation/test'
 import { EmailInUseError } from '@/domain/errors'
+import { Router } from 'react-router-dom'
+import { createMemoryHistory } from 'history'
 
 type SutTypes = {
   sut: RenderResult
   addAccountSpy: AddAccountSpy
+  saveAccessTokenMock: SaveAccessTokenMock
 }
 type SutParams = {
   validationError: string
 }
 
+const history = createMemoryHistory({ initialEntries: ['/signup'] })
+
 const makeSut = (params?: SutParams): SutTypes => {
   const validationStub = new ValidationStub()
   validationStub.errorMessage = params?.validationError
   const addAccountSpy = new AddAccountSpy()
+  const saveAccessTokenMock = new SaveAccessTokenMock()
   const sut = render(
+    <Router history={history}>
         <Signup
           validation={validationStub}
           addAccount={addAccountSpy}
+          saveAccessToken={saveAccessTokenMock}
         />
+    </Router>
   )
   return {
     sut,
-    addAccountSpy
+    addAccountSpy,
+    saveAccessTokenMock
   }
 }
 
@@ -121,5 +131,21 @@ describe('SignUp Page', () => {
     const loadingComponent = sut.getByTestId('mainError')
     expect(loadingComponent.textContent).toBe(error.message)
     Helper.testChildCount(sut, 'errorWrapper', 1)
+  })
+
+  test('should acall SaveAccessToken on success', async () => {
+    const { sut, addAccountSpy, saveAccessTokenMock } = makeSut()
+    const email = faker.internet.email()
+    const password = faker.internet.password()
+    await Helper.simulateValidSubmit(sut, email, password)
+
+    const loadingComponent = sut.getByTestId('loading')
+
+    await waitFor(() => {
+      expect(loadingComponent).toBeTruthy()
+    })
+    expect(saveAccessTokenMock.accessToken).toBe(addAccountSpy.account.accessToken)
+    expect(history.length).toBe(1)
+    expect(history.location.pathname).toBe('/')
   })
 })
