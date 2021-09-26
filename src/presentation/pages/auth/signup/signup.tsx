@@ -19,10 +19,13 @@ const SignupPage: React.FC<Props> = ({ validation, addAccount, saveAccessToken }
   const history = useHistory()
   const [state, setState] = React.useState({
     isLogin: 0,
+    name: '',
     email: '',
     password: '',
+    isFormInvalid: true,
     passwordConfirm: '',
     isLoading: false,
+    nameError: '',
     emailError: '',
     passwordError: '',
     passwordConfirmError: '',
@@ -30,20 +33,25 @@ const SignupPage: React.FC<Props> = ({ validation, addAccount, saveAccessToken }
   })
 
   React.useEffect(() => {
-    setState({ ...state, emailError: validation.validate('email', state.email) })
-  }, [state.email])
-
-  React.useEffect(() => {
-    setState({ ...state, passwordError: validation.validate('password', state.password) })
-  }, [state.password])
+    const nameError = validation.validate('name', state.name)
+    const emailError = validation.validate('email', state.email)
+    const passwordError = validation.validate('password', state.password)
+    const passwordConfirmError = validation.validate('passwordConfirm', state.passwordConfirm)
+    setState({
+      ...state,
+      passwordError,
+      isFormInvalid: !!nameError || !!emailError || !!passwordError || !!passwordConfirmError
+    })
+  }, [state.name, state.email, state.password, state.passwordConfirm])
 
   const handleClick = async (step: number): Promise<void> => {
     try {
-      if (state.isLoading || state.emailError || state.passwordError) {
+      if (state.isLoading || state.isFormInvalid) {
         return
       }
       setState({ ...state, isLogin: step })
       const account = await addAccount.add({
+        name: state.name,
         email: state.email,
         password: state.password,
         passwordConfirm: state.passwordConfirm

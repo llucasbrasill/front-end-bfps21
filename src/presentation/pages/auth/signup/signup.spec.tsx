@@ -47,9 +47,17 @@ describe('SignUp Page', () => {
     const { sut } = makeSut({ validationError })
     Helper.testChildCount(sut, 'errorWrapper', 0)
     Helper.testButtonIsDisabled(sut, 'submit', true)
+    Helper.testStatusForField(sut, 'name', validationError)
     Helper.testStatusForField(sut, 'email', validationError)
     Helper.testStatusForField(sut, 'password', validationError)
     Helper.testStatusForField(sut, 'passwordConfirm', 'Required field')
+  })
+
+  test('should show name error if Validation fails', () => {
+    const validationError = faker.random.words()
+    const { sut } = makeSut({ validationError })
+    Helper.populateNameField(sut, 'name')
+    Helper.testStatusForField(sut, 'name', validationError)
   })
 
   test('should show email error if Validation fails', () => {
@@ -88,13 +96,15 @@ describe('SignUp Page', () => {
 
   test('should call AddAccount with correct values', async () => {
     const { sut, addAccountSpy } = makeSut()
+    const name = faker.random.words(4)
     const email = faker.internet.email()
     const password = faker.internet.password()
-    await Helper.simulateValidSubmit(sut, email, password)
+    await Helper.simulateValidSubmit(sut, name, email, password)
 
     const loadingComponent = sut.getByTestId('loading')
     expect(loadingComponent).toBeTruthy()
     expect(addAccountSpy.params).toEqual({
+      name,
       email,
       password,
       passwordConfirm: password

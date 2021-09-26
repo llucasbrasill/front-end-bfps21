@@ -141,6 +141,11 @@
     justify-content: center;
     width: 100%;
   }
+
+
+  .requiredField:focus {
+    border: 1px solid red!important;
+  }
 }
 
 

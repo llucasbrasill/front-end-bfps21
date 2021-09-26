@@ -144,6 +144,20 @@
   .requiredField {
     border: 1px solid $red!important;
   }
+
+  .errorWrapper {
+    margin: var(--padding-small) var(--padding-medium);
+    flex-direction: column;
+    display: flex;
+
+    span[data-testid="emailStatus"],
+    span[data-testid="passwordStatus"],
+    span[data-testid="mainError"] {
+      font-size: 12px;
+      color: red;
+    }
+  }
+
 }
 
 

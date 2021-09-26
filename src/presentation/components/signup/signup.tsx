@@ -5,17 +5,21 @@ import Terms from '../term'
 import styles from './styles.scss'
 import { useTranslation, Trans } from 'react-i18next'
 import { Link } from 'react-router-dom'
+import SubmitButton from '../submitButton'
 
 interface login {
+  name: string
   email: string
   password: string
   passwordConfirm: string
   isLogin: number
+  nameError: string
   emailError: string
   passwordError: string
   passwordConfirmError: string
   isLoading: boolean
   mainError: string
+  isFormInvalid: boolean
 }
 
 type Props = {
@@ -53,6 +57,20 @@ const SignUp: React.FC<Props> = ({ value, setValue, handleClick }: Props) => {
           }}
           ref={formRef}
         >
+          <div>
+            <label htmlFor="name">{t('name')}</label>
+            <Input
+              className={`name ${value.name && (value.nameError ? styles.requiredField : 'validty-field')}`}
+              id="name"
+              type="text"
+              name="name"
+              placeholder={t('enter your name')}
+              value={value.name}
+              onChange={handleChange}
+              autoComplete="off"
+              required
+            />
+          </div>
           <div>
             <label htmlFor="email">{t('email')}</label>
             <Input
@@ -103,7 +121,7 @@ const SignUp: React.FC<Props> = ({ value, setValue, handleClick }: Props) => {
           <div data-testid="errorWrapper" className={styles.errorWrapper}>
             { value.mainError && <span data-testid="mainError">{value.mainError}</span> }
           </div>
-          <button data-testid="submit" type="submit" disabled={!!value.emailError || !!value.passwordError || !!value.passwordConfirmError}>{t('start')}</button>
+          <SubmitButton name={t('start')} testId="submit" disabled={value.isFormInvalid} />
         </form>
 
         <footer>

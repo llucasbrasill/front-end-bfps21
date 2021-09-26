@@ -1,9 +1,11 @@
 {
     "experimente": "Teste grátis por 7 dias",
+    "name": "Nome",
     "email": "E-mail",
     "password": "Senha",
     "start": "Começar",
     "enter your email": "Digite seu e-mail",
+    "enter your name": "Digite seu nome",
     "Already have an account? Sign in to your  account.": "Já possui conta? acesse sua conta.",
     "enter your password": "Digite sua senha",
     "passwordConfirm": "Confimar senha",

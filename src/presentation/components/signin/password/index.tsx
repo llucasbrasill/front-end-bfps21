@@ -43,7 +43,7 @@ const SignInPassword: React.FC<Props> = ({ value, setValue, handleSubmit }: Prop
           </Link>
         </div>
           <label htmlFor="password">{t('enter your password')}</label>
-          <Input className="password" name="password" type="password" id="password" placeholder={t('password')} value={value.password} onChange={handleChange} required />
+          <Input className={`password ${value.password && (value.passwordError ? styles.requiredField : 'validty-field')}`} name="password" type="password" id="password" placeholder={t('password')} value={value.password} onChange={handleChange} required />
           <div className={styles.errorWrapper}>
             <span data-testid="passwordStatus">{value.password && value.passwordError}</span>
           </div>

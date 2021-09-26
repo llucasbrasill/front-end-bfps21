@@ -18,7 +18,7 @@ export const testStatusForField = (sut: RenderResult, fieldName: string, validat
 }
 export const testStatusForFieldEmail = (sut: RenderResult, fieldName: string, validationError?: string): void => {
   const field = sut.getByTestId(fieldName) as HTMLInputElement
-  expect(field.classList.contains('requiredField')).toBeTruthy()
+  expect(field.classList.contains('requiredField')).toBeFalsy()
 }
 
 export const testStatusForFieldPassword = (sut: RenderResult, fieldName: string, validationError?: string): void => {
@@ -40,8 +40,9 @@ export const simulatePasswordValidSubmit = async (sut: RenderResult, password = 
   await fireEvent.click(submitButtonPassword)
 }
 
-export const simulateValidSubmit = async (sut: RenderResult, email = faker.internet.email(), password = faker.internet.password()): Promise<void> => {
+export const simulateValidSubmit = async (sut: RenderResult, name = faker.random.words(4), email = faker.internet.email(), password = faker.internet.password()): Promise<void> => {
   try {
+    populateNameField(sut, name)
     populateEmailField(sut, email)
     populatePasswordField(sut, password)
     populatePasswordConfirmField(sut, password)
@@ -55,6 +56,11 @@ export const simulateValidSubmit = async (sut: RenderResult, email = faker.inter
 export const testElementExists = (sut: RenderResult, fieldName: string): void => {
   const loadingComponent = sut.getByTestId(fieldName)
   expect(loadingComponent).toBeTruthy()
+}
+
+export const populateNameField = (sut: RenderResult, name = faker.internet.userName()): void => {
+  const nameInput = sut.getByTestId('name') as HTMLInputElement
+  fireEvent.input(nameInput, { target: { value: name } })
 }
 
 export const populateEmailField = (sut: RenderResult, email = faker.internet.email()): void => {
