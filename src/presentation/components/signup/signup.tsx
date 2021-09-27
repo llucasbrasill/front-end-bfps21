@@ -60,7 +60,7 @@ const SignUp: React.FC<Props> = ({ value, setValue, handleClick }: Props) => {
           <div>
             <label htmlFor="name">{t('name')}</label>
             <Input
-              className={`name ${value.name && (value.nameError ? styles.requiredField : 'validty-field')}`}
+              className={`name ${value.name && (value.nameError ? styles.invalid : styles.valid)}`}
               id="name"
               type="text"
               name="name"
@@ -70,11 +70,14 @@ const SignUp: React.FC<Props> = ({ value, setValue, handleClick }: Props) => {
               autoComplete="off"
               required
             />
+            <div className={styles.errorWrapper}>
+                  <span>{value.name && value.nameError}</span>
+            </div>
           </div>
           <div>
             <label htmlFor="email">{t('email')}</label>
             <Input
-              className={`email ${value.email && (value.emailError ? styles.requiredField : 'validty-field')}`}
+              className={`email ${value.email && (value.emailError ? styles.invalid : styles.valid)}`}
               id="email"
               type="email"
               name="email"
@@ -84,13 +87,15 @@ const SignUp: React.FC<Props> = ({ value, setValue, handleClick }: Props) => {
               autoComplete="off"
               required
             />
+            <div className={styles.errorWrapper}>
+                  <span>{value.email && value.emailError}</span>
+            </div>
           </div>
 
           <div>
             <label htmlFor="password">{t('password')}</label>
             <Input
-
-              className={`password ${value.password && (value.passwordError ? styles.requiredField : 'validty-field')}`}
+              className={`password ${value.password && (value.passwordError ? styles.invalid : styles.valid)}`}
               id="password"
               type="password"
               name="password"
@@ -100,6 +105,10 @@ const SignUp: React.FC<Props> = ({ value, setValue, handleClick }: Props) => {
               autoComplete="off"
               required
             />
+
+            <div className={styles.errorWrapper}>
+                  <span>{value.password && value.passwordError}</span>
+            </div>
           </div>
 
           <div>
@@ -107,7 +116,7 @@ const SignUp: React.FC<Props> = ({ value, setValue, handleClick }: Props) => {
 
             <Input
 
-              className={`passwordConfirm ${value.passwordConfirm && (value.passwordConfirmError ? styles.requiredField : 'validty-field')}`}
+              className={`passwordConfirm ${value.passwordConfirm && (value.passwordConfirmError ? styles.invalid : styles.valid)}`}
               id="passwordConfirm"
               type="password"
               placeholder={t('enter your password')}
@@ -117,6 +126,10 @@ const SignUp: React.FC<Props> = ({ value, setValue, handleClick }: Props) => {
               onChange={handleChange}
               required
             />
+
+            <div className={styles.errorWrapper}>
+                  <span>{value.passwordConfirm && value.passwordConfirmError}</span>
+            </div>
           </div>
           <div data-testid="errorWrapper" className={styles.errorWrapper}>
             { value.mainError && <span data-testid="mainError">{value.mainError}</span> }

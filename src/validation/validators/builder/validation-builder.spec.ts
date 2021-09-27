@@ -1,14 +1,13 @@
 
-import { EmailValidation, MinLenghtValidation, RequiredFiedlValidation } from '@/validation/validators'
+import { EmailValidation, MinLengthValidation, RequiredFieldValidation, CompareFieldsValidation } from '@/validation/validators'
 import { ValidationBuilder as sut } from './validation-builder'
 import faker from 'faker'
-import { CompareFieldValidation } from '../compare-fields/compare-fields-validation'
 
 describe('ValidationBuilder', () => {
   test('should return RequiredFieldValidation', () => {
     const field = faker.database.column()
     const validations = sut.field(field).required().build()
-    expect(validations).toEqual([new RequiredFiedlValidation(field)])
+    expect(validations).toEqual([new RequiredFieldValidation(field)])
   })
 
   test('should return EmailValidation', () => {
@@ -21,14 +20,14 @@ describe('ValidationBuilder', () => {
     const field = faker.database.column()
     const fieldToCompare = faker.database.column()
     const validations = sut.field(field).sameAs(fieldToCompare).build()
-    expect(validations).toEqual([new CompareFieldValidation(field, fieldToCompare)])
+    expect(validations).toEqual([new CompareFieldsValidation(field, fieldToCompare)])
   })
 
   test('should return MinLengthValidation', () => {
     const field = faker.database.column()
     const lenght = faker.datatype.number()
     const validations = sut.field(field).min(lenght).build()
-    expect(validations).toEqual([new MinLenghtValidation(field, lenght)])
+    expect(validations).toEqual([new MinLengthValidation(field, lenght)])
   })
 
   test('should return a list of validations', () => {
@@ -37,8 +36,8 @@ describe('ValidationBuilder', () => {
     const validations = sut.field(field).required().min(lenght).email().build()
 
     expect(validations).toEqual([
-      new RequiredFiedlValidation(field),
-      new MinLenghtValidation(field, lenght),
+      new RequiredFieldValidation(field),
+      new MinLengthValidation(field, lenght),
       new EmailValidation(field)
 
     ])

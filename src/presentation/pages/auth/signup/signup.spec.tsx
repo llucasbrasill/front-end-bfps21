@@ -57,7 +57,7 @@ describe('SignUp Page', () => {
     const validationError = faker.random.words()
     const { sut } = makeSut({ validationError })
     Helper.populateNameField(sut, 'name')
-    Helper.testStatusForField(sut, 'name', validationError)
+    Helper.testStatusForFieldName(sut, 'name', validationError)
   })
 
   test('should show email error if Validation fails', () => {

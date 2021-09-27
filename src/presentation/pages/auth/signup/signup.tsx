@@ -37,11 +37,14 @@ const SignupPage: React.FC<Props> = ({ validation, addAccount, saveAccessToken }
     const formData = { name, email, password, passwordConfirm }
     const nameError = validation.validate('name', formData)
     const emailError = validation.validate('email', formData)
-    const passwordError = validation.validate('password', FormData)
-    const passwordConfirmError = validation.validate('passwordConfirm', FormData)
+    const passwordError = validation.validate('password', formData)
+    const passwordConfirmError = validation.validate('passwordConfirm', formData)
     setState({
       ...state,
+      nameError,
+      emailError,
       passwordError,
+      passwordConfirmError,
       isFormInvalid: !!nameError || !!emailError || !!passwordError || !!passwordConfirmError
     })
   }, [state.name, state.email, state.password, state.passwordConfirm])

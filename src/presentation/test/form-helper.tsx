@@ -14,16 +14,21 @@ export const testButtonIsDisabled = (sut: RenderResult, fieldName: string, isDis
 
 export const testStatusForField = (sut: RenderResult, fieldName: string, validationError?: string): void => {
   const field = sut.getByTestId(fieldName) as HTMLInputElement
-  expect(field.classList.contains('requiredField')).toBeFalsy()
+  expect(field.classList.contains('invalid')).toBeFalsy()
 }
 export const testStatusForFieldEmail = (sut: RenderResult, fieldName: string, validationError?: string): void => {
   const field = sut.getByTestId(fieldName) as HTMLInputElement
-  expect(field.classList.contains('requiredField')).toBeFalsy()
+  expect(field.classList.contains('invalid')).toBeTruthy()
+}
+
+export const testStatusForFieldName = (sut: RenderResult, fieldName: string, validationError?: string): void => {
+  const field = sut.getByTestId(fieldName) as HTMLInputElement
+  expect(field.classList.contains('invalid')).toBeTruthy()
 }
 
 export const testStatusForFieldPassword = (sut: RenderResult, fieldName: string, validationError?: string): void => {
   const field = sut.getByTestId(fieldName) as HTMLInputElement
-  expect(field.classList.contains('requiredField')).toBeTruthy()
+  expect(field.classList.contains('invalid')).toBeTruthy()
 }
 
 export const simulateEmailValidSubmit = (sut: RenderResult, email = faker.internet.email()): void => {

@@ -1,4 +1,5 @@
 export * from './email/email-validation'
-export * from './min-length/min-lenght-validators'
+export * from './min-length/min-length-validators'
 export * from './required-field/required-field-validation'
 export * from './validation-composite/validation-composite'
+export * from './compare-fields/compare-fields-validation'

@@ -95,6 +95,10 @@
     }
   }
 
+  button[disabled] {
+      background: #fbfbfb;
+      color: #5a676c;
+  }
 
   .recoveryPassword {
     color: var(--color-black-text);
