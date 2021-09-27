@@ -44,11 +44,15 @@ const SigninPage: React.FC<Props> = ({ validation, authentication, saveAccessTok
     setState({ ...state, isLogin: step })
   }
   React.useEffect(() => {
-    setState({ ...state, emailError: validation.validate('email', state.email) })
+    const { email, password } = state
+    const formData = { email, password }
+    setState({ ...state, emailError: validation.validate('email', formData) })
   }, [state.email])
 
   React.useEffect(() => {
-    setState({ ...state, passwordError: validation.validate('password', state.password) })
+    const { email, password } = state
+    const formData = { email, password }
+    setState({ ...state, passwordError: validation.validate('password', formData) })
   }, [state.password])
 
   const presentation = [
