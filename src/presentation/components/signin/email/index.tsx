@@ -44,7 +44,7 @@ const SignIn: React.FC<Props> = ({ value, setValue, handleClick }: Props) => {
         <form onSubmit={(event) => { event.preventDefault(); handleSubmit() }} ref={formRef}>
           <label htmlFor="email">{t('email')}</label>
           <Input
-            className={`email ${value.email && (value.emailError ? styles.requiredField : 'validty-field')}`}
+            className={`email ${value.email && (value.emailError ? styles.invalid : styles.valid)}`}
             id="email"
             type="email"
             name="email"

@@ -1,3 +1,5 @@
+@import "../../styles/main.scss";
+
 .form {
   border: 1px solid var(--color-border);
   background-color: var(--color-white);
@@ -146,9 +148,12 @@
     width: 100%;
   }
 
+  .invalid {
+    border: 1px solid $red!important;
+  }
 
-  .requiredField:focus {
-    border: 1px solid red!important;
+  .valid {
+    border: 1px solid #00B46E !important;
   }
 }
 
