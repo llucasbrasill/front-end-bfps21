@@ -12,7 +12,7 @@
   "env": {
     "cypress/globals": true
   },
-  "plugins": ["react"],
+  "plugins": ["react", "cypress"],
   "parserOptions": {
     "project": "./tsconfig.json"
   },

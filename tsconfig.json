@@ -9,6 +9,7 @@
       "dom",
       "ESNext"
     ],
+    "types": ["jest", "node"],
     "sourceMap": true,
     "jsx": "react",
     "moduleResolution": "node",
