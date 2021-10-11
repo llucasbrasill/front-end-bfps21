@@ -29,6 +29,7 @@
     "webpack",
     "jest",
     "src/setupTests.ts",
-    "dist"
+    "dist",
+    "src/main/test/cypress"
   ]
 }
