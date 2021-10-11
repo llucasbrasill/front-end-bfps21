@@ -57,7 +57,7 @@ const SignIn: React.FC<Props> = ({ value, setValue, handleClick }: Props) => {
             <span data-testid="emailStatus">{value.email && value.emailError}</span>
             { value.mainError && <span data-testid="mainError">{value.mainError}</span> }
           </div>
-          <button type="submit" data-testid="submitEmail" disabled={!value.email}>{t('continue')}</button>
+          <button type="submit" data-testid="submitEmail" disabled={!value.email || !!value.emailError}>{t('continue')}</button>
 
           <Link to="/signup" data-testid="signup" className={styles.createAccount}>
             <Trans>Não tem conta? <b>Teste grátis por 7 dias.</b></Trans>

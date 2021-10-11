@@ -152,7 +152,7 @@
     border: 1px solid $red!important;
   }
 
-  .valid {
+  .valid:focus {
     border: 1px solid #00B46E !important;
   }
 }

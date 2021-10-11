@@ -70,7 +70,7 @@ const SignInPassword: React.FC<Props> = ({
           <button
             type="submit"
             data-testid="submitPassword"
-            disabled={!value.password && value.passwordError === ''}
+            disabled={!value.password || !!value.passwordError}
           >
             {t('SignIn')}
           </button>
