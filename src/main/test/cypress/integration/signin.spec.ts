@@ -49,4 +49,16 @@ describe('SignIn', () => {
     cy.getByTestId('mainError').should('exist')
     cy.url().should('eq', `${baseUrl}/signin`)
   })
+
+  it('Shoud preset save accessToken if valid credentials are provided', () => {
+    cy.getByTestId('email').type('lucas@llucasbrasill.com')
+    cy.getByTestId('submitEmail').click()
+    cy.getByTestId('password').type('aaaaaa')
+    cy.getByTestId('submitPassword').click()
+    cy.getByTestId('loading').should('exist')
+    cy.getByTestId('loading').should('not.exist')
+    cy.getByTestId('mainError').should('not.exist')
+    cy.url().should('eq', `${baseUrl}/`)
+    cy.window().then(window => assert.isOk(window.localStorage.getItem('accessToken')))
+  })
 })
