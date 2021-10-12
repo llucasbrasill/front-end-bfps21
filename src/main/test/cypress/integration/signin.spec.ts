@@ -21,4 +21,12 @@ describe('SignIn', () => {
     cy.getByTestId('email').type(faker.internet.email())
     cy.getByTestId('emailStatus').should('not.have.descendants')
   })
+
+  it('Shoud preset error state if password form is invalid', () => {
+    cy.getByTestId('email').type(faker.internet.email())
+    cy.getByTestId('submitEmail').click()
+    cy.getByTestId('password').type(faker.datatype.string(4))
+    cy.getByTestId('passwordStatus').contains('Por favor, informe um valor correto.')
+    cy.getByTestId('submitPassword').should('have.attr', 'disabled')
+  })
 })
