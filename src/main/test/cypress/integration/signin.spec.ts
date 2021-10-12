@@ -29,4 +29,11 @@ describe('SignIn', () => {
     cy.getByTestId('passwordStatus').contains('Por favor, informe um valor correto.')
     cy.getByTestId('submitPassword').should('have.attr', 'disabled')
   })
+
+  it('Shoud preset valid state if step password form is valid', () => {
+    cy.getByTestId('email').type(faker.internet.email())
+    cy.getByTestId('submitEmail').click()
+    cy.getByTestId('password').type(faker.datatype.string(6))
+    cy.getByTestId('passwordStatus').should('not.have.descendants')
+  })
 })
