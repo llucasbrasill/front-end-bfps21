@@ -16,4 +16,9 @@ describe('SignIn', () => {
     cy.getByTestId('emailStatus').contains('Por favor, informe um valor correto.')
     cy.getByTestId('submitEmail').should('have.attr', 'disabled')
   })
+
+  it('Shoud preset valid state if step email form is valid', () => {
+    cy.getByTestId('email').type(faker.internet.email())
+    cy.getByTestId('emailStatus').should('not.have.descendants')
+  })
 })
