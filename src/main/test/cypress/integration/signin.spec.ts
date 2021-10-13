@@ -55,4 +55,54 @@ describe('SignIn', () => {
     cy.getByTestId('mainError').should('contain.text', 'Invalid credentials')
     cy.url().should('eq', `${baseUrl}/signin`)
   })
+  it('Should present UnexpectedError on 400', () => {
+    cy.intercept('POST', '/api/login', {
+      statusCode: 400,
+      body: {
+        error: faker.datatype.string(6)
+      }
+    })
+    cy.getByTestId('email').type(faker.internet.email())
+    cy.getByTestId('submitEmail').click()
+    cy.getByTestId('password').type(faker.datatype.string(6))
+    cy.getByTestId('submitPassword').click()
+    cy.getByTestId('loading').should('not.exist')
+    cy.getByTestId('mainError').should('exist')
+    cy.getByTestId('mainError').should('contain.text', "Something's wrong. try again soon.")
+    cy.url().should('eq', `${baseUrl}/signin`)
+  })
+
+  it('Should present UnexpectedError if invalid data is returned', () => {
+    cy.intercept('POST', '/api/login', {
+      statusCode: 200,
+      body: {
+        invalidProperty: faker.git.commitSha()
+      }
+    })
+    cy.getByTestId('email').type(faker.internet.email())
+    cy.getByTestId('submitEmail').click()
+    cy.getByTestId('password').type(faker.datatype.string(6))
+    cy.getByTestId('submitPassword').click()
+    cy.getByTestId('loading').should('not.exist')
+    cy.getByTestId('mainError').should('exist')
+    cy.getByTestId('mainError').should('contain.text', "Something's wrong. try again soon.")
+    cy.url().should('eq', `${baseUrl}/signin`)
+  })
+
+  it('Should present save accessToken if valid credentials are provided', () => {
+    cy.intercept('POST', '/api/login', {
+      statusCode: 200,
+      body: {
+        accessToken: faker.git.commitSha()
+      }
+    })
+    cy.getByTestId('email').type(faker.internet.email())
+    cy.getByTestId('submitEmail').click()
+    cy.getByTestId('password').type(faker.datatype.string(6))
+    cy.getByTestId('submitPassword').click()
+    cy.getByTestId('loading').should('not.exist')
+    cy.getByTestId('mainError').should('not.exist')
+    cy.url().should('eq', `${baseUrl}/`)
+    cy.window().then(window => assert.isOk(window.localStorage.getItem('accessToken')))
+  })
 })
