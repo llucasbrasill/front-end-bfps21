@@ -105,4 +105,18 @@ describe('SignIn', () => {
     cy.url().should('eq', `${baseUrl}/`)
     cy.window().then(window => assert.isOk(window.localStorage.getItem('accessToken')))
   })
+
+  it('Should present mutiple submits', () => {
+    cy.intercept('POST', '/api/login', {
+      statusCode: 200,
+      body: {
+        accessToken: faker.git.commitSha()
+      }
+    }).as('request')
+    cy.getByTestId('email').type(faker.internet.email())
+    cy.getByTestId('submitEmail').click()
+    cy.getByTestId('password').type(faker.datatype.string(6))
+    cy.getByTestId('submitPassword').dblclick()
+    cy.get('@request.all').should('have.length', 1)
+  })
 })
