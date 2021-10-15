@@ -61,4 +61,11 @@ describe('SignUp', () => {
     cy.getByTestId('mainError').should('have.text', "Something's wrong. try again soon.")
     cy.url().should('eq', `${baseUrl}/signup`)
   })
+
+  it('Should present save accessToken if valid credentials are provided', () => {
+    Http.mockOk()
+    Helper.SimulateSubmit()
+    cy.url().should('eq', `${baseUrl}/`)
+    cy.window().then(window => assert.isOk(window.localStorage.getItem('accessToken')))
+  })
 })
