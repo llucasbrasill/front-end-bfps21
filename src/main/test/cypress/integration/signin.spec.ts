@@ -1,4 +1,5 @@
 import faker from 'faker'
+import * as Http from '../support/signin-mock'
 
 const baseUrl: string = Cypress.config().baseUrl
 
@@ -40,12 +41,7 @@ describe('SignIn', () => {
   })
 
   it('Should present InvalidCredentialsError on 401', () => {
-    cy.intercept('POST', '/api/login', {
-      statusCode: 401,
-      body: {
-        error: faker.datatype.string(6)
-      }
-    })
+    Http.mockInvalidCredentialsError()
     cy.getByTestId('email').type(faker.internet.email())
     cy.getByTestId('submitEmail').click()
     cy.getByTestId('password').type(faker.datatype.string(6))
@@ -56,12 +52,7 @@ describe('SignIn', () => {
     cy.url().should('eq', `${baseUrl}/signin`)
   })
   it('Should present UnexpectedError on 400', () => {
-    cy.intercept('POST', '/api/login', {
-      statusCode: 400,
-      body: {
-        error: faker.datatype.string(6)
-      }
-    })
+    Http.mockUnexpectedError()
     cy.getByTestId('email').type(faker.internet.email())
     cy.getByTestId('submitEmail').click()
     cy.getByTestId('password').type(faker.datatype.string(6))
@@ -73,12 +64,7 @@ describe('SignIn', () => {
   })
 
   it('Should present UnexpectedError if invalid data is returned', () => {
-    cy.intercept('POST', '/api/login', {
-      statusCode: 200,
-      body: {
-        invalidProperty: faker.git.commitSha()
-      }
-    })
+    Http.mockInvalid()
     cy.getByTestId('email').type(faker.internet.email())
     cy.getByTestId('submitEmail').click()
     cy.getByTestId('password').type(faker.datatype.string(6))
@@ -107,12 +93,7 @@ describe('SignIn', () => {
   })
 
   it('Should present mutiple submits', () => {
-    cy.intercept('POST', '/api/login', {
-      statusCode: 200,
-      body: {
-        accessToken: faker.git.commitSha()
-      }
-    }).as('request')
+    Http.mockOk()
     cy.getByTestId('email').type(faker.internet.email())
     cy.getByTestId('submitEmail').click()
     cy.getByTestId('password').type(faker.datatype.string(6))
