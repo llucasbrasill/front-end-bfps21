@@ -68,4 +68,10 @@ describe('SignUp', () => {
     cy.url().should('eq', `${baseUrl}/`)
     cy.window().then(window => assert.isOk(window.localStorage.getItem('accessToken')))
   })
+
+  it('Should present mutiple submits', () => {
+    Http.mockOk()
+    Helper.SimulateSubmitDoubleClick()
+    cy.get('@request.all').should('have.length', 1)
+  })
 })
