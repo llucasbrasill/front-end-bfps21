@@ -25,3 +25,12 @@ export const mockOk = (method: Method, url: string, response: any): void => {
     body: response
   }).as('request')
 }
+
+export const mockEmailInUseError = (url: string): void => {
+  cy.intercept('POST', url, {
+    statusCode: 403,
+    body: {
+      error: 403
+    }
+  }).as('request')
+}

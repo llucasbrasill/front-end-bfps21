@@ -1,5 +1,5 @@
 import faker from 'faker'
-import * as Http from '../support/signin-mock'
+import * as Http from '../support/signin-mocks'
 
 const baseUrl: string = Cypress.config().baseUrl
 
@@ -76,12 +76,7 @@ describe('SignIn', () => {
   })
 
   it('Should present save accessToken if valid credentials are provided', () => {
-    cy.intercept('POST', '/api/login', {
-      statusCode: 200,
-      body: {
-        accessToken: faker.git.commitSha()
-      }
-    })
+    Http.mockOk()
     cy.getByTestId('email').type(faker.internet.email())
     cy.getByTestId('submitEmail').click()
     cy.getByTestId('password').type(faker.datatype.string(6))

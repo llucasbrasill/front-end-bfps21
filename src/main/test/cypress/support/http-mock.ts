@@ -1,4 +1,4 @@
-import * as Helper from '../support/form-mocks'
+import * as Helper from './form-mocks'
 import faker from 'faker'
 
 export const mockInvalidCredentialsError = (): void => Helper.mockInvalidCredentialsError('/api/login')
