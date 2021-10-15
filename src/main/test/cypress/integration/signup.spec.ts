@@ -74,4 +74,11 @@ describe('SignUp', () => {
     Helper.SimulateSubmitDoubleClick()
     cy.get('@request.all').should('have.length', 1)
   })
+
+  it('Should not call submit if form is invalid', () => {
+    Http.mockOk()
+    cy.getByTestId('name').type(faker.name.findName())
+    cy.getByTestId('email').type(faker.internet.email()).type('enter')
+    cy.get('@request.all').should('have.length', 0)
+  })
 })
